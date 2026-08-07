@@ -2,23 +2,23 @@
   "apps": [
     {
       "id": "com.dutchliquid.aliasvault",
-      "title": "AliasVault",
-      "tagline": "Datenschutzorientierter Passwort- und E-Mail-Alias-Manager"
+      "tagline": "Datenschutzorientierter Passwort- und E-Mail-Alias-Manager",
+      "title": "AliasVault"
     },
     {
       "id": "com.dutchliquid.apache-superset",
-      "title": "Apache Superset",
-      "tagline": "Open-Source-Business-Intelligence, Diagramme und interaktive Dashboards"
+      "tagline": "Open-Source-Business-Intelligence, Diagramme und interaktive Dashboards",
+      "title": "Apache Superset"
     },
     {
       "id": "com.dutchliquid.openproject",
-      "title": "OpenProject",
-      "tagline": "Open-Source-Projektmanagement für klassische, agile und hybride Teams"
+      "tagline": "Open-Source-Projektmanagement für klassische, agile und hybride Teams",
+      "title": "OpenProject"
     },
     {
       "id": "com.dutchliquid.searxng",
-      "title": "SearXNG",
-      "tagline": "Private, selbst gehostete Metasuche ohne Profilbildung"
+      "tagline": "Private, selbst gehostete Metasuche ohne Profilbildung",
+      "title": "SearXNG"
     }
   ]
 }

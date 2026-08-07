@@ -2,23 +2,23 @@
   "apps": [
     {
       "id": "com.dutchliquid.aliasvault",
-      "title": "AliasVault",
-      "tagline": "Gestor privado de contraseñas y alias de correo"
+      "tagline": "Gestor privado de contraseñas y alias de correo",
+      "title": "AliasVault"
     },
     {
       "id": "com.dutchliquid.apache-superset",
-      "title": "Apache Superset",
-      "tagline": "Inteligencia empresarial de código abierto, gráficos y paneles interactivos"
+      "tagline": "Inteligencia empresarial de código abierto, gráficos y paneles interactivos",
+      "title": "Apache Superset"
     },
     {
       "id": "com.dutchliquid.openproject",
-      "title": "OpenProject",
-      "tagline": "Gestión de proyectos de código abierto para equipos clásicos, ágiles e híbridos"
+      "tagline": "Gestión de proyectos de código abierto para equipos clásicos, ágiles e híbridos",
+      "title": "OpenProject"
     },
     {
       "id": "com.dutchliquid.searxng",
-      "title": "SearXNG",
-      "tagline": "Metabúsqueda privada y autoalojada sin perfiles"
+      "tagline": "Metabúsqueda privada y autoalojada sin perfiles",
+      "title": "SearXNG"
     }
   ]
 }
