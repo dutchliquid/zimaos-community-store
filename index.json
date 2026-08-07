@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updated_at": "2026-08-07T14:12:46Z",
-  "app_count": 4,
+  "updated_at": "2026-08-07T19:03:29Z",
+  "app_count": 5,
   "base_url": "https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages",
   "apps": [
     {
@@ -45,6 +45,27 @@
       "meta_url": "/apps/com.dutchliquid.apache-superset/meta.json",
       "content_hash": "6b37eb46",
       "version": "6.0.0"
+    },
+    {
+      "id": "com.dutchliquid.headscale-headplane",
+      "title": "Headscale + Headplane",
+      "tagline": "Self-host a Tailscale-compatible control server with a modern web interface",
+      "category": "Networking",
+      "categories": [
+        "networking"
+      ],
+      "author": "DutchLiquid",
+      "developer": "Headscale and Headplane communities",
+      "architectures": [
+        "amd64",
+        "arm64"
+      ],
+      "icon": "/apps/com.dutchliquid.headscale-headplane/assets/icon.png",
+      "thumbnail": "/apps/com.dutchliquid.headscale-headplane/assets/preview-dark.webp",
+      "compose_url": "/apps/com.dutchliquid.headscale-headplane/docker-compose.yml",
+      "meta_url": "/apps/com.dutchliquid.headscale-headplane/meta.json",
+      "content_hash": "151fc02d",
+      "version": "0.29.2-0.6.3"
     },
     {
       "id": "com.dutchliquid.openproject",

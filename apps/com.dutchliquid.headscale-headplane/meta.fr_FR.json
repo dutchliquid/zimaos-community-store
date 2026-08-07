@@ -1,0 +1,10 @@
+{
+  "id": "com.dutchliquid.headscale-headplane",
+  "title": "Headscale + Headplane",
+  "description": "Headscale est une implémentation open source et auto-hébergée du serveur de contrôle Tailscale. Headplane ajoute une interface moderne pour gérer les machines, utilisateurs, routes, règles d’accès, DNS et autres paramètres du tailnet.\n\nCe paquet combine Headscale 0.29.2 et Headplane 0.6.3 avec une base SQLite persistante, un secret de cookie généré automatiquement, des réglages MagicDNS, Taildrop et l’intégration Docker de Headplane. Toutes les données restent dans le stockage applicatif de ZimaOS.\n\nLes clients Headscale nécessitent une URL stable et accessible. Pour un accès Internet, utilisez un domaine avec HTTPS et configurez correctement le routeur et le proxy inverse.\n",
+  "release_note": "Première version avec Headscale 0.29.2 et Headplane 0.6.3 pour DutchLiquid ZimaOS Community Store.",
+  "tagline": "Auto-hébergez un serveur compatible Tailscale avec une interface web moderne",
+  "tips": {
+    "before_install": "**Avant l’installation**\n\nRemplacez `YOUR-ZIMAOS-IP` dans les deux champs d’URL par l’adresse IP de ZimaOS. Pour une installation publique, utilisez le domaine HTTPS définitif. Ces valeurs ne sont écrites dans la configuration que lors de la première installation.\n\nOuvrez Headplane à l’adresse `http://[ZimaOS-IP]:13000/admin`. Pour vous connecter, créez une clé API Headscale dans le terminal ZimaOS :\n\n`docker exec headscale headscale apikeys create --expiration 90d`\n\nConservez la clé en lieu sûr ; elle n’est affichée qu’une fois. Cette application monte le socket Docker en lecture seule pour la gestion réseau de Headplane. Gardez Headplane sur un réseau fiable et utilisez un proxy inverse HTTPS avant toute exposition à Internet.\n"
+  }
+}

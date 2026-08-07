@@ -2,23 +2,28 @@
   "apps": [
     {
       "id": "com.dutchliquid.aliasvault",
-      "tagline": "Privacyvriendelijke wachtwoord- en e-mailaliasmanager",
-      "title": "AliasVault"
+      "title": "AliasVault",
+      "tagline": "Privacyvriendelijke wachtwoord- en e-mailaliasmanager"
     },
     {
       "id": "com.dutchliquid.apache-superset",
-      "tagline": "Opensource business intelligence, grafieken en interactieve dashboards",
-      "title": "Apache Superset"
+      "title": "Apache Superset",
+      "tagline": "Opensource business intelligence, grafieken en interactieve dashboards"
+    },
+    {
+      "id": "com.dutchliquid.headscale-headplane",
+      "title": "Headscale + Headplane",
+      "tagline": "Host zelf een Tailscale-compatibele besturingsserver met een moderne webinterface"
     },
     {
       "id": "com.dutchliquid.openproject",
-      "tagline": "Opensource projectmanagement voor klassieke, agile en hybride teams",
-      "title": "OpenProject"
+      "title": "OpenProject",
+      "tagline": "Opensource projectmanagement voor klassieke, agile en hybride teams"
     },
     {
       "id": "com.dutchliquid.searxng",
-      "tagline": "Privé metazoeken zonder tracking of profilering",
-      "title": "SearXNG"
+      "title": "SearXNG",
+      "tagline": "Privé metazoeken zonder tracking of profilering"
     }
   ]
 }

@@ -1,0 +1,162 @@
+name: headscale-headplane
+networks:
+  default:
+    name: headscale-headplane_default
+    external: false
+services:
+  init:
+    image: alpine:3.22
+    container_name: headscale-headplane-init
+    restart: 'no'
+    environment:
+      HEADPLANE_BASE_URL: http://YOUR-ZIMAOS-IP:13000
+      HEADSCALE_SERVER_URL: http://YOUR-ZIMAOS-IP:18080
+    command:
+    - /bin/sh
+    - -ec
+    - "set -eu\n\nmkdir -p \\\n  /appdata/config \\\n  /appdata/data/headscale/cache\
+      \ \\\n  /appdata/data/headplane \\\n  /appdata/run \\\n  /appdata/secrets\n\n\
+      # Headplane requires an exactly 32-character cookie secret.\nif [ ! -s /appdata/secrets/headplane_cookie_secret\
+      \ ]; then\n  head -c 16 /dev/urandom | od -An -tx1 | tr -d ' \\n' > /appdata/secrets/headplane_cookie_secret\n\
+      fi\n\nif [ ! -s /appdata/config/dns_records.json ]; then\n  printf '[]\\n' >\
+      \ /appdata/config/dns_records.json\nfi\n\n# Create the Headscale configuration\
+      \ only on first installation.\nif [ ! -s /appdata/config/headscale.yaml ]; then\n\
+      \  cat > /appdata/config/headscale.yaml <<HEADSCALE_EOF\nserver_url: \"$${HEADSCALE_SERVER_URL}\"\
+      \nlisten_addr: \"0.0.0.0:8080\"\nmetrics_listen_addr: \"0.0.0.0:9090\"\n\ngrpc_listen_addr:\
+      \ \"127.0.0.1:50443\"\ngrpc_allow_insecure: false\ntrusted_proxies: []\n\nnoise:\n\
+      \  private_key_path: /appdata/data/headscale/noise_private.key\n\nprefixes:\n\
+      \  v4: 100.64.0.0/10\n  v6: fd7a:115c:a1e0::/48\n  allocation: sequential\n\n\
+      derp:\n  server:\n    enabled: false\n    region_id: 999\n    region_code: headscale\n\
+      \    region_name: Headscale Embedded DERP\n    verify_clients: true\n    stun_listen_addr:\
+      \ \"0.0.0.0:3478\"\n    private_key_path: /appdata/data/headscale/derp_server_private.key\n\
+      \    automatically_add_embedded_derp_region: true\n  urls:\n    - https://controlplane.tailscale.com/derpmap/default\n\
+      \  paths: []\n  auto_update_enabled: true\n  update_frequency: 3h\n\ndisable_check_updates:\
+      \ false\n\nnode:\n  expiry: 0\n  ephemeral:\n    inactivity_timeout: 30m\n \
+      \ routes:\n    ha:\n      probe_interval: 10s\n      probe_timeout: 5s\n\ndatabase:\n\
+      \  type: sqlite\n  debug: false\n  gorm:\n    prepare_stmt: true\n    parameterized_queries:\
+      \ true\n    skip_err_record_not_found: true\n    slow_threshold: 1000\n  sqlite:\n\
+      \    path: /appdata/data/headscale/db.sqlite\n    write_ahead_log: true\n  \
+      \  wal_autocheckpoint: 1000\n\nacme_url: https://acme-v02.api.letsencrypt.org/directory\n\
+      acme_email: \"\"\ntls_letsencrypt_hostname: \"\"\ntls_letsencrypt_cache_dir:\
+      \ /appdata/data/headscale/cache\ntls_letsencrypt_challenge_type: HTTP-01\ntls_letsencrypt_listen:\
+      \ \":http\"\ntls_cert_path: \"\"\ntls_key_path: \"\"\n\nlog:\n  level: info\n\
+      \  format: text\n\npolicy:\n  mode: file\n  path: \"\"\n\ndns:\n  magic_dns:\
+      \ true\n  base_domain: \"tailnet.home.arpa\"\n  override_local_dns: true\n \
+      \ nameservers:\n    global:\n      - 1.1.1.1\n      - 1.0.0.1\n    split: {}\n\
+      \  search_domains: []\n  extra_records_path: /appdata/config/dns_records.json\n\
+      \nunix_socket: /appdata/run/headscale.sock\nunix_socket_permission: \"0770\"\
+      \n\nlogtail:\n  enabled: false\n\ntaildrop:\n  enabled: true\n\nauto_update:\n\
+      \  enabled: false\nHEADSCALE_EOF\nfi\n\n# Remove the mutually exclusive empty\
+      \ extra_records list left by older packages.\nif grep -q '^[[:space:]]*extra_records_path:'\
+      \ /appdata/config/headscale.yaml 2>/dev/null; then\n  sed -i '/^[[:space:]]*extra_records:[[:space:]]*\\\
+      [\\][[:space:]]*$/d' /appdata/config/headscale.yaml\nfi\n\n# Create the Headplane\
+      \ configuration only on first installation.\nif [ ! -s /appdata/config/headplane.yaml\
+      \ ]; then\n  cat > /appdata/config/headplane.yaml <<HEADPLANE_EOF\nserver:\n\
+      \  host: \"0.0.0.0\"\n  port: 3000\n  base_url: \"$${HEADPLANE_BASE_URL}\"\n\
+      \  cookie_secret_path: \"/appdata/secrets/headplane_cookie_secret\"\n  cookie_secure:\
+      \ false\n  cookie_max_age: 86400\n  data_path: \"/appdata/data/headplane\"\n\
+      \nheadscale:\n  url: \"http://headscale:8080\"\n  public_url: \"$${HEADSCALE_SERVER_URL}\"\
+      \n  config_path: \"/appdata/config/headscale.yaml\"\n  config_strict: false\n\
+      \  dns_records_path: \"/appdata/config/dns_records.json\"\n\nintegration:\n\
+      \  agent:\n    enabled: false\n    pre_authkey: \"disabled\"\n  docker:\n  \
+      \  enabled: true\n    container_label: \"me.tale.headplane.target=headscale\"\
+      \n    socket: \"unix:///var/run/docker.sock\"\n  kubernetes:\n    enabled: false\n\
+      \    validate_manifest: true\n    pod_name: \"headscale\"\n  proc:\n    enabled:\
+      \ false\nHEADPLANE_EOF\nfi\n\n# Repair configurations produced by Headplane\
+      \ versions before 0.6.3.\nif ! grep -q '^[[:space:]]*pre_authkey:' /appdata/config/headplane.yaml\
+      \ 2>/dev/null; then\n  awk '\n    BEGIN { in_agent=0; inserted=0 }\n    /^ \
+      \ agent:/ { in_agent=1 }\n    in_agent && !inserted && /^    enabled:/ {\n \
+      \     print\n      print \"    pre_authkey: \\\"disabled\\\"\"\n      inserted=1\n\
+      \      next\n    }\n    in_agent && /^  docker:/ { in_agent=0 }\n    { print\
+      \ }\n  ' /appdata/config/headplane.yaml > /appdata/config/headplane.yaml.tmp\n\
+      \  mv /appdata/config/headplane.yaml.tmp /appdata/config/headplane.yaml\nfi\n\
+      \nchmod 600 /appdata/secrets/headplane_cookie_secret\nchmod 664 \\\n  /appdata/config/headscale.yaml\
+      \ \\\n  /appdata/config/headplane.yaml \\\n  /appdata/config/dns_records.json\n\
+      \necho \"Headscale and Headplane configuration initialized.\"\n"
+    networks:
+    - default
+    volumes:
+    - type: bind
+      source: /DATA/AppData/$AppID
+      target: /appdata
+      bind:
+        create_host_path: true
+  headscale:
+    image: headscale/headscale:0.29.2
+    container_name: headscale
+    restart: unless-stopped
+    command:
+    - serve
+    depends_on:
+      init:
+        condition: service_completed_successfully
+        required: true
+    environment:
+      HEADSCALE_CONFIG: /appdata/config/headscale.yaml
+    healthcheck:
+      test:
+      - CMD
+      - headscale
+      - health
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+    labels:
+      me.tale.headplane.target: headscale
+    networks:
+    - default
+    ports:
+    - target: 8080
+      published: '18080'
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: /DATA/AppData/$AppID
+      target: /appdata
+      bind:
+        create_host_path: true
+  headplane:
+    image: ghcr.io/tale/headplane:0.6.3
+    container_name: headplane
+    restart: unless-stopped
+    depends_on:
+      init:
+        condition: service_completed_successfully
+        required: true
+      headscale:
+        condition: service_healthy
+        required: true
+    environment:
+      HEADPLANE_CONFIG_PATH: /appdata/config/headplane.yaml
+    networks:
+    - default
+    ports:
+    - target: 3000
+      published: '13000'
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: /DATA/AppData/$AppID
+      target: /appdata
+      bind:
+        create_host_path: true
+    - type: bind
+      source: /var/run/docker.sock
+      target: /var/run/docker.sock
+      read_only: true
+x-casaos:
+  id: com.dutchliquid.headscale-headplane
+  main: headplane
+  version: 0.29.2-0.6.3
+  icon: https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages/apps/com.dutchliquid.headscale-headplane/assets/icon.png
+  title:
+    en_US: Headscale + Headplane
+    nl_NL: Headscale + Headplane
+    de_DE: Headscale + Headplane
+    fr_FR: Headscale + Headplane
+    es_ES: Headscale + Headplane
+    it_IT: Headscale + Headplane
+  index: /admin
+  port_map: '13000'
+  scheme: http

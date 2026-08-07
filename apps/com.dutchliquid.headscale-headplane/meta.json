@@ -1,0 +1,38 @@
+{
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "author": "DutchLiquid",
+  "developer": "Headscale and Headplane communities",
+  "category": "Networking",
+  "update_at": "2026-08-07",
+  "thumbnail": "/apps/com.dutchliquid.headscale-headplane/assets/preview-dark.webp",
+  "screenshot_link": [
+    "/apps/com.dutchliquid.headscale-headplane/assets/preview-dark.webp",
+    "/apps/com.dutchliquid.headscale-headplane/assets/machine-dark.webp",
+    "/apps/com.dutchliquid.headscale-headplane/assets/acls-dark.webp"
+  ],
+  "tagline": "Self-host a Tailscale-compatible control server with a modern web interface",
+  "description": "Headscale is an open-source, self-hosted implementation of the Tailscale control server. Headplane adds a modern administration interface for machines, users, routes, access policies, DNS, and other tailnet settings.\n\nThis package combines Headscale 0.29.2 and Headplane 0.6.3 with a persistent SQLite database, automatically generated cookie secret, MagicDNS defaults, Taildrop support, and Headplane’s Docker integration. It is designed for home labs and private networks while keeping all data under ZimaOS application storage.\n\nHeadscale clients need a stable, reachable URL. For internet access, use a domain with HTTPS and configure your router and reverse proxy appropriately.\n",
+  "tips": {
+    "before_install": "**Before installation**\n\nReplace `YOUR-ZIMAOS-IP` in both URL fields with your ZimaOS IP address. For a public deployment, use your final HTTPS domain instead. These values are written to the configuration only during the first installation.\n\nOpen Headplane at `http://[ZimaOS-IP]:13000/admin`. To sign in, create a Headscale API key from the ZimaOS terminal:\n\n`docker exec headscale headscale apikeys create --expiration 90d`\n\nStore the key securely; it is shown only once. This app mounts the Docker socket read-only for Headplane’s network-management features. Docker socket access is security-sensitive. Keep Headplane on a trusted network and use an HTTPS reverse proxy before exposing either service to the internet.\n"
+  },
+  "website": "https://headplane.net/",
+  "repo": "https://github.com/tale/headplane",
+  "support": "https://github.com/tale/headplane/issues",
+  "docs": "https://headplane.net/install/docker",
+  "title": "Headscale + Headplane",
+  "release_note": "Initial Headscale 0.29.2 and Headplane 0.6.3 release for the DutchLiquid ZimaOS Community Store.",
+  "base_url": "https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages",
+  "id": "com.dutchliquid.headscale-headplane",
+  "version": "0.29.2-0.6.3",
+  "categories": [
+    "networking"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 137985718,
+    "arm64": 134676730
+  }
+}
