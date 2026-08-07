@@ -1,0 +1,165 @@
+name: aliasvault
+
+services:
+  aliasvault:
+    image: ghcr.io/aliasvault/aliasvault:latest
+    container_name: aliasvault
+    restart: unless-stopped
+    environment:
+      FORCE_HTTPS_REDIRECT: "false"
+      PUBLIC_REGISTRATION_ENABLED: "true"
+      HOSTNAME: "localhost"
+      PRIVATE_EMAIL_DOMAINS: ""
+      SUPPORT_EMAIL: ""
+    ports:
+      - target: 80
+        published: "84"
+        protocol: tcp
+      - target: 443
+        published: "4443"
+        protocol: tcp
+      - target: 25
+        published: "25"
+        protocol: tcp
+      - target: 587
+        published: "587"
+        protocol: tcp
+    volumes:
+      - /DATA/AppData/$AppID/database:/database
+      - /DATA/AppData/$AppID/logs:/logs
+      - /DATA/AppData/$AppID/secrets:/secrets
+      - /DATA/AppData/$AppID/certificates:/certificates
+    x-casaos:
+      envs:
+        - container: FORCE_HTTPS_REDIRECT
+          description:
+            en_US: Keep disabled when ZimaOS or a reverse proxy handles HTTPS
+            nl_NL: Uitgeschakeld laten wanneer ZimaOS of een reverse proxy HTTPS afhandelt
+        - container: PUBLIC_REGISTRATION_ENABLED
+          description:
+            en_US: Allow account creation; disable this after creating the administrator account
+            nl_NL: Accountregistratie toestaan; schakel dit uit nadat het beheerdersaccount is aangemaakt
+        - container: HOSTNAME
+          description:
+            en_US: Public hostname used for links and certificates; use localhost for local-only access
+            nl_NL: Publieke hostnaam voor links en certificaten; gebruik localhost voor alleen lokale toegang
+        - container: PRIVATE_EMAIL_DOMAINS
+          description:
+            en_US: Optional comma-separated domains for private email aliases
+            nl_NL: Optionele, kommagescheiden domeinen voor privé-e-mailaliassen
+        - container: SUPPORT_EMAIL
+          description:
+            en_US: Optional support address shown to users
+            nl_NL: Optioneel supportadres dat aan gebruikers wordt getoond
+      ports:
+        - container: "80"
+          description:
+            en_US: Web interface (HTTP)
+            nl_NL: Webinterface (HTTP)
+        - container: "443"
+          description:
+            en_US: Web interface (HTTPS)
+            nl_NL: Webinterface (HTTPS)
+        - container: "25"
+          description:
+            en_US: SMTP mail reception for aliases
+            nl_NL: SMTP-ontvangst voor e-mailaliassen
+        - container: "587"
+          description:
+            en_US: SMTP submission with STARTTLS
+            nl_NL: SMTP-verzending met STARTTLS
+      volumes:
+        - container: /database
+          description:
+            en_US: AliasVault database
+            nl_NL: AliasVault-database
+        - container: /logs
+          description:
+            en_US: Application logs
+            nl_NL: Applicatielogboeken
+        - container: /secrets
+          description:
+            en_US: Encryption secrets; back up this directory and never delete it
+            nl_NL: Encryptiesleutels; maak een back-up en verwijder deze map nooit
+        - container: /certificates
+          description:
+            en_US: TLS certificates
+            nl_NL: TLS-certificaten
+
+x-casaos:
+  id: com.dutchliquid.aliasvault
+  architectures:
+    - amd64
+    - arm64
+  main: aliasvault
+  author: DutchLiquid
+  developer: AliasVault
+  category: Others
+  version: "1.0.0"
+  update_at: "2026-08-07"
+  icon: https://raw.githubusercontent.com/dutchliquid/zimaos-community-store/main/Apps/AliasVault/icon.png
+  thumbnail: https://raw.githubusercontent.com/dutchliquid/zimaos-community-store/main/Apps/AliasVault/thumbnail.png
+  screenshot_link:
+    - https://raw.githubusercontent.com/dutchliquid/zimaos-community-store/main/Apps/AliasVault/screenshot-1.png
+    - https://raw.githubusercontent.com/dutchliquid/zimaos-community-store/main/Apps/AliasVault/screenshot-2.png
+    - https://raw.githubusercontent.com/dutchliquid/zimaos-community-store/main/Apps/AliasVault/screenshot-3.png
+  title:
+    en_US: AliasVault
+    nl_NL: AliasVault
+  tagline:
+    en_US: Privacy-first password and email alias manager
+    nl_NL: Privacyvriendelijke wachtwoord- en e-mailaliasmanager
+  description:
+    en_US: |
+      AliasVault is a privacy-first, open-source password and email alias manager. Create a unique identity, strong password, and random email alias for every website you use, while keeping your vault end-to-end encrypted.
+
+      This all-in-one container bundles the database, API, web client, admin panel, SMTP server, and reverse proxy for a straightforward ZimaOS deployment.
+
+      Highlights:
+      - End-to-end encrypted password and identity vault
+      - Built-in email aliases and mail reception
+      - Browser extensions plus iOS and Android apps
+      - Administrator panel for users and system settings
+      - A single container with persistent ZimaOS-managed storage
+    nl_NL: |
+      AliasVault is een privacyvriendelijke, opensource wachtwoord- en e-mailaliasmanager. Maak voor iedere website een unieke identiteit, een sterk wachtwoord en een willekeurige e-mailalias, terwijl je kluis end-to-end versleuteld blijft.
+
+      Deze alles-in-één-container bundelt de database, API, webclient, het beheerpaneel, de SMTP-server en reverse proxy voor een eenvoudige installatie op ZimaOS.
+
+      Hoogtepunten:
+      - End-to-end versleutelde wachtwoord- en identiteitskluis
+      - Ingebouwde e-mailaliassen en mailontvangst
+      - Browserextensies en apps voor iOS en Android
+      - Beheerpaneel voor gebruikers en systeeminstellingen
+      - Eén container met blijvende, door ZimaOS beheerde opslag
+  tips:
+    before_install:
+      en_US: |
+        **First-time setup**
+
+        1. After installation, open `http://[ZimaOS-IP]:84`.
+        2. Register the first account; it becomes the administrator.
+        3. Then change `PUBLIC_REGISTRATION_ENABLED` to `false` to prevent unwanted registrations.
+
+        **Email aliases (optional)**
+
+        Ports 25 and 587 are only required when AliasVault receives mail for your domain. Point the domain's MX record to your server and set `PRIVATE_EMAIL_DOMAINS`. Many residential internet providers block inbound port 25.
+      nl_NL: |
+        **Eerste installatie**
+
+        1. Open na installatie `http://[ZimaOS-IP]:84`.
+        2. Registreer het eerste account; dit wordt de beheerder.
+        3. Zet daarna `PUBLIC_REGISTRATION_ENABLED` op `false` om ongewenste registraties te voorkomen.
+
+        **E-mailaliassen (optioneel)**
+
+        Poorten 25 en 587 zijn alleen nodig wanneer AliasVault mail voor je domein ontvangt. Laat het MX-record van het domein naar je server wijzen en stel `PRIVATE_EMAIL_DOMAINS` in. Veel internetproviders blokkeren inkomend verkeer op poort 25.
+  index: /
+  port_map: "84"
+  scheme: http
+  release_notes:
+    en_US: Initial DutchLiquid ZimaOS Community Store release.
+    nl_NL: Eerste uitgave in de DutchLiquid ZimaOS Community Store.
+  website: https://www.aliasvault.net/
+  repo: https://github.com/aliasvault/aliasvault
+  support: https://github.com/aliasvault/aliasvault/issues
