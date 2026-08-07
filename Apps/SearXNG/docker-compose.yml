@@ -33,36 +33,68 @@ services:
           description:
             en_US: Public URL of this SearXNG instance; keep localhost for local access or replace it with your reverse-proxy URL
             nl_NL: Publieke URL van deze SearXNG-instantie; gebruik localhost voor lokale toegang of vul de URL van je reverse proxy in
+            de_DE: Öffentliche URL dieser SearXNG-Instanz; für lokalen Zugriff localhost beibehalten oder durch die URL des Reverse-Proxys ersetzen
+            fr_FR: URL publique de cette instance SearXNG ; conservez localhost pour un accès local ou remplacez-le par l'URL du proxy inverse
+            es_ES: URL pública de esta instancia de SearXNG; mantenga localhost para el acceso local o sustitúyalo por la URL del proxy inverso
+            it_IT: URL pubblico di questa istanza SearXNG; mantieni localhost per l'accesso locale o sostituiscilo con l'URL del reverse proxy
         - container: SEARXNG_SECRET
           description:
             en_US: Required private secret; replace the default with a long random value before first use
             nl_NL: Verplicht geheim; vervang de standaardwaarde voor het eerste gebruik door een lange willekeurige waarde
+            de_DE: Erforderliches privates Geheimnis; den Standardwert vor der ersten Nutzung durch einen langen Zufallswert ersetzen
+            fr_FR: Secret privé obligatoire ; remplacez la valeur par défaut par une longue valeur aléatoire avant la première utilisation
+            es_ES: Secreto privado obligatorio; sustituya el valor predeterminado por uno largo y aleatorio antes del primer uso
+            it_IT: Segreto privato obbligatorio; sostituisci il valore predefinito con un valore casuale lungo prima del primo utilizzo
         - container: SEARXNG_IMAGE_PROXY
           description:
             en_US: Proxy image-result thumbnails through SearXNG for additional privacy
             nl_NL: Leid miniaturen van afbeeldingsresultaten via SearXNG voor extra privacy
+            de_DE: Vorschaubilder von Bildergebnissen für zusätzlichen Datenschutz über SearXNG leiten
+            fr_FR: Faites transiter les miniatures des résultats d'images par SearXNG pour plus de confidentialité
+            es_ES: Transmita las miniaturas de los resultados de imágenes mediante SearXNG para obtener más privacidad
+            it_IT: Inoltra le miniature dei risultati delle immagini tramite SearXNG per una maggiore privacy
         - container: SEARXNG_PUBLIC_INSTANCE
           description:
             en_US: Enable only when intentionally operating a public instance
             nl_NL: Alleen inschakelen wanneer je bewust een openbare instantie beheert
+            de_DE: Nur aktivieren, wenn die Instanz bewusst öffentlich betrieben wird
+            fr_FR: Activez uniquement si vous exploitez volontairement une instance publique
+            es_ES: Actívelo únicamente si gestiona de forma intencionada una instancia pública
+            it_IT: Abilita solo se gestisci intenzionalmente un'istanza pubblica
         - container: SEARXNG_DEBUG
           description:
             en_US: Development diagnostics; leave disabled for normal use
             nl_NL: Diagnostiek voor ontwikkeling; laat uitgeschakeld bij normaal gebruik
+            de_DE: Entwicklungsdiagnose; bei normaler Nutzung deaktiviert lassen
+            fr_FR: Diagnostic de développement ; laissez désactivé pour une utilisation normale
+            es_ES: Diagnósticos de desarrollo; déjelos desactivados para el uso normal
+            it_IT: Diagnostica di sviluppo; lascia disattivata per l'uso normale
       ports:
         - container: "8080"
           description:
             en_US: SearXNG web interface
             nl_NL: SearXNG-webinterface
+            de_DE: SearXNG-Weboberfläche
+            fr_FR: Interface web SearXNG
+            es_ES: Interfaz web de SearXNG
+            it_IT: Interfaccia web di SearXNG
       volumes:
         - container: /etc/searxng
           description:
             en_US: Persistent SearXNG configuration
             nl_NL: Blijvende SearXNG-configuratie
+            de_DE: Dauerhafte SearXNG-Konfiguration
+            fr_FR: Configuration SearXNG persistante
+            es_ES: Configuración persistente de SearXNG
+            it_IT: Configurazione persistente di SearXNG
         - container: /var/cache/searxng
           description:
             en_US: Persistent application cache
             nl_NL: Blijvende applicatiecache
+            de_DE: Dauerhafter Anwendungscache
+            fr_FR: Cache persistant de l'application
+            es_ES: Caché persistente de la aplicación
+            it_IT: Cache persistente dell'applicazione
 
 x-casaos:
   id: com.dutchliquid.searxng
@@ -84,9 +116,17 @@ x-casaos:
   title:
     en_US: SearXNG
     nl_NL: SearXNG
+    de_DE: SearXNG
+    fr_FR: SearXNG
+    es_ES: SearXNG
+    it_IT: SearXNG
   tagline:
     en_US: Private, self-hosted metasearch without profiling
     nl_NL: Privé metazoeken zonder tracking of profilering
+    de_DE: Private, selbst gehostete Metasuche ohne Profilbildung
+    fr_FR: Métarecherche privée et auto-hébergée sans profilage
+    es_ES: Metabúsqueda privada y autoalojada sin perfiles
+    it_IT: Metaricerca privata e self-hosted senza profilazione
   description:
     en_US: |
       SearXNG is a free, open-source metasearch engine that combines results from many search services while keeping searches under your control. It does not build advertising profiles, and a self-hosted instance can become the private search engine for every device on your network.
@@ -106,6 +146,42 @@ x-casaos:
       - Zoekcategorieën voor web, afbeeldingen, video's, nieuws, kaarten, wetenschap, bestanden en meer
       - Nauwkeurige instellingen voor zoekmachines, taal, SafeSearch en de interface
       - OpenSearch-integratie voor gebruik als standaardzoekmachine in je browser
+    de_DE: |
+      SearXNG ist eine freie Open-Source-Metasuchmaschine, die Ergebnisse vieler Suchdienste kombiniert und dir die Kontrolle über deine Suchanfragen lässt. Sie erstellt keine Werbeprofile, und eine selbst gehostete Instanz kann zur privaten Suchmaschine für alle Geräte in deinem Netzwerk werden.
+
+      Highlights:
+      - Bündelt Ergebnisse aus einer breiten Auswahl von Suchmaschinen
+      - Keine Werbeprofile und kein Benutzer-Tracking
+      - Suchkategorien für Web, Bilder, Videos, Nachrichten, Karten, Wissenschaft, Dateien und mehr
+      - Detaillierte Kontrolle über Suchmaschinen, Sprache, SafeSearch und Oberflächeneinstellungen
+      - OpenSearch-Integration zur Verwendung als Standardsuchmaschine im Browser
+    fr_FR: |
+      SearXNG est un métamoteur de recherche libre et open source qui combine les résultats de nombreux services tout en vous laissant le contrôle de vos recherches. Il ne crée aucun profil publicitaire et une instance auto-hébergée peut devenir le moteur de recherche privé de tous les appareils de votre réseau.
+
+      Points forts :
+      - Agrège les résultats d'un large choix de moteurs de recherche
+      - Aucun profil publicitaire ni suivi des utilisateurs
+      - Catégories de recherche pour le web, les images, les vidéos, l'actualité, les cartes, les sciences, les fichiers et plus encore
+      - Contrôle précis des moteurs, de la langue, de SafeSearch et des préférences d'interface
+      - Intégration OpenSearch pour l'utiliser comme moteur de recherche par défaut du navigateur
+    es_ES: |
+      SearXNG es un metabuscador libre y de código abierto que combina resultados de numerosos servicios de búsqueda y mantiene las búsquedas bajo su control. No crea perfiles publicitarios y una instancia autoalojada puede convertirse en el buscador privado de todos los dispositivos de su red.
+
+      Características destacadas:
+      - Agrega resultados de una amplia selección de motores de búsqueda
+      - Sin perfiles publicitarios ni seguimiento de usuarios
+      - Categorías de búsqueda para web, imágenes, vídeos, noticias, mapas, ciencia, archivos y mucho más
+      - Control detallado de los motores, el idioma, SafeSearch y las preferencias de la interfaz
+      - Integración con OpenSearch para usarlo como motor de búsqueda predeterminado del navegador
+    it_IT: |
+      SearXNG è un metamotore di ricerca libero e open source che combina i risultati di numerosi servizi mantenendo le ricerche sotto il tuo controllo. Non crea profili pubblicitari e un'istanza self-hosted può diventare il motore di ricerca privato per tutti i dispositivi della rete.
+
+      Funzionalità principali:
+      - Aggrega i risultati di un'ampia selezione di motori di ricerca
+      - Nessun profilo pubblicitario o tracciamento degli utenti
+      - Categorie di ricerca per web, immagini, video, notizie, mappe, scienza, file e altro
+      - Controllo dettagliato di motori, lingua, SafeSearch e preferenze dell'interfaccia
+      - Integrazione OpenSearch per usarlo come motore di ricerca predefinito del browser
   tips:
     before_install:
       en_US: |
@@ -124,12 +200,48 @@ x-casaos:
         3. Publiceer je SearXNG via een domein of reverse proxy, wijzig `SEARXNG_BASE_URL` dan in de volledige publieke URL, inclusief `https://` en de afsluitende slash.
 
         Dit pakket heeft bewust geen hardwarespecifieke geheugenlimiet. ZimaOS kan de bronnen passend bij je apparaat beheren.
+      de_DE: |
+        **Vor der ersten Nutzung**
+
+        1. Ersetze `SEARXNG_SECRET` durch einen langen Zufallswert. Ein Passwortmanager kann diesen für dich erzeugen.
+        2. Öffne nach der Installation `http://[ZimaOS-IP]:8099`.
+        3. Wenn du SearXNG über eine Domain oder einen Reverse-Proxy veröffentlichst, ändere `SEARXNG_BASE_URL` in die vollständige öffentliche URL einschließlich `https://` und abschließendem Schrägstrich.
+
+        Dieses Paket hat bewusst keine hardwarespezifische Speicherbegrenzung. ZimaOS kann die Ressourcen passend zu deinem Gerät verwalten.
+      fr_FR: |
+        **Avant la première utilisation**
+
+        1. Remplacez `SEARXNG_SECRET` par une longue valeur aléatoire. Un gestionnaire de mots de passe peut en générer une.
+        2. Après l'installation, ouvrez `http://[ZimaOS-IP]:8099`.
+        3. Si vous publiez SearXNG par l'intermédiaire d'un domaine ou d'un proxy inverse, définissez `SEARXNG_BASE_URL` sur l'URL publique complète, avec `https://` et la barre oblique finale.
+
+        Ce paquet n'impose volontairement aucune limite de mémoire propre à un matériel. ZimaOS peut gérer les ressources en fonction de votre appareil.
+      es_ES: |
+        **Antes del primer uso**
+
+        1. Sustituya `SEARXNG_SECRET` por un valor largo y aleatorio. Puede generarlo con un gestor de contraseñas.
+        2. Después de la instalación, abra `http://[ZimaOS-IP]:8099`.
+        3. Si publica SearXNG mediante un dominio o un proxy inverso, cambie `SEARXNG_BASE_URL` por la URL pública completa, incluido `https://` y la barra final.
+
+        Este paquete no incluye deliberadamente un límite de memoria específico del hardware. ZimaOS puede gestionar los recursos de acuerdo con su dispositivo.
+      it_IT: |
+        **Prima del primo utilizzo**
+
+        1. Sostituisci `SEARXNG_SECRET` con un valore casuale lungo. Puoi generarlo con un gestore di password.
+        2. Dopo l'installazione, apri `http://[ZimaOS-IP]:8099`.
+        3. Se pubblichi SearXNG tramite un dominio o un reverse proxy, modifica `SEARXNG_BASE_URL` con l'URL pubblico completo, includendo `https://` e la barra finale.
+
+        Questo pacchetto non impone volutamente un limite di memoria specifico per l'hardware. ZimaOS può gestire le risorse in base al dispositivo.
   index: /
   port_map: "8099"
   scheme: http
   release_notes:
     en_US: Initial SearXNG release for the DutchLiquid ZimaOS Community Store.
     nl_NL: Eerste SearXNG-uitgave voor de DutchLiquid ZimaOS Community Store.
+    de_DE: Erste SearXNG-Veröffentlichung für den DutchLiquid ZimaOS Community Store.
+    fr_FR: Première version de SearXNG pour le DutchLiquid ZimaOS Community Store.
+    es_ES: Primera versión de SearXNG para DutchLiquid ZimaOS Community Store.
+    it_IT: Prima versione di SearXNG per il DutchLiquid ZimaOS Community Store.
   website: https://docs.searxng.org/
   repo: https://github.com/searxng/searxng
   support: https://github.com/searxng/searxng/issues
