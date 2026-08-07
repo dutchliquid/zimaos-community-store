@@ -2,8 +2,8 @@
   "id": "com.dutchliquid.aliasvault",
   "title": "AliasVault",
   "description": "AliasVault est un gestionnaire open source de mots de passe et d'alias de messagerie axé sur la confidentialité. Créez une identité unique, un mot de passe fort et un alias de messagerie aléatoire pour chaque site, tout en conservant un coffre-fort chiffré de bout en bout.\n\nCe conteneur tout-en-un regroupe la base de données, l'API, le client web, le panneau d'administration, le serveur SMTP et le proxy inverse pour un déploiement simple sur ZimaOS.\n\nPoints forts :\n- Coffre-fort de mots de passe et d'identités chiffré de bout en bout\n- Alias de messagerie et réception des e-mails intégrés\n- Extensions de navigateur et applications iOS et Android\n- Panneau d'administration pour les utilisateurs et les paramètres système\n- Un seul conteneur avec un stockage persistant géré par ZimaOS\n",
-  "tagline": "Gestionnaire privé de mots de passe et d'alias de messagerie",
   "release_note": "Première version publiée dans le DutchLiquid ZimaOS Community Store.",
+  "tagline": "Gestionnaire privé de mots de passe et d'alias de messagerie",
   "tips": {
     "before_install": "**Première configuration**\n\n1. Après l'installation, ouvrez `http://[ZimaOS-IP]:84`.\n2. Créez le premier compte ; il deviendra administrateur.\n3. Définissez ensuite `PUBLIC_REGISTRATION_ENABLED` sur `false` afin d'empêcher les inscriptions indésirables.\n\n**Alias de messagerie (facultatif)**\n\nLes ports 25 et 587 ne sont nécessaires que si AliasVault reçoit les e-mails de votre domaine. Faites pointer l'enregistrement MX du domaine vers votre serveur et définissez `PRIVATE_EMAIL_DOMAINS`. De nombreux fournisseurs d'accès résidentiels bloquent le port entrant 25.\n"
   }
