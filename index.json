@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-08-07T09:13:29Z",
+  "updated_at": "2026-08-07T09:22:59Z",
   "app_count": 2,
   "base_url": "https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages",
   "apps": [
@@ -8,9 +8,9 @@
       "id": "com.dutchliquid.aliasvault",
       "title": "AliasVault",
       "tagline": "Privacy-first password and email alias manager",
-      "category": "Others",
+      "category": "Productivity",
       "categories": [
-        "others"
+        "productivity"
       ],
       "author": "DutchLiquid",
       "developer": "AliasVault",
@@ -22,7 +22,7 @@
       "thumbnail": "/apps/com.dutchliquid.aliasvault/assets/thumbnail.webp",
       "compose_url": "/apps/com.dutchliquid.aliasvault/docker-compose.yml",
       "meta_url": "/apps/com.dutchliquid.aliasvault/meta.json",
-      "content_hash": "d92287b1",
+      "content_hash": "232ac373",
       "version": "1.0.0"
     },
     {
@@ -43,7 +43,7 @@
       "thumbnail": "/apps/com.dutchliquid.searxng/assets/thumbnail.webp",
       "compose_url": "/apps/com.dutchliquid.searxng/docker-compose.yml",
       "meta_url": "/apps/com.dutchliquid.searxng/meta.json",
-      "content_hash": "3906c4f9",
+      "content_hash": "3980b486",
       "version": "1.0.0"
     }
   ]

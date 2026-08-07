@@ -36,6 +36,10 @@ x-casaos:
   title:
     en_US: AliasVault
     nl_NL: AliasVault
+    de_DE: AliasVault
+    fr_FR: AliasVault
+    es_ES: AliasVault
+    it_IT: AliasVault
   index: /
   port_map: '84'
   scheme: http
