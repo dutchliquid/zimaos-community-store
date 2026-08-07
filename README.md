@@ -24,6 +24,29 @@ Do not append `.zip` directly to the repository URL; GitHub branch archives use 
 
 ## Available apps
 
+### OpenProject
+
+![OpenProject icon](Apps/OpenProject/icon.png)
+
+OpenProject Community Edition is an open-source project-management platform for traditional, agile, and hybrid teams. The ZimaOS package uses the official all-in-one OpenProject 17.6.0 image and portable storage for its embedded PostgreSQL database and uploaded files.
+
+| Setting | Default |
+| --- | --- |
+| Web interface | `http://[ZimaOS-IP]:8083` |
+| Persistent data | `/DATA/AppData/$AppID/` |
+| Default language | English |
+| HTTPS | Disabled for local setup |
+
+Before installation, set `OPENPROJECT_HOST__NAME` to the address you will use and replace `SECRET_KEY_BASE` with a random 128-character value. The first startup can take several minutes; then sign in with `admin` / `admin` and change the password immediately.
+
+#### Screenshots
+
+![OpenProject project overview](Apps/OpenProject/screenshot-1.png)
+
+![OpenProject Gantt chart](Apps/OpenProject/screenshot-2.png)
+
+![OpenProject agile board](Apps/OpenProject/screenshot-3.png)
+
 ### SearXNG
 
 ![SearXNG icon](Apps/SearXNG/icon.png)
@@ -89,6 +112,13 @@ Apps/
     screenshot-1.png
     screenshot-2.png
     screenshot-3.png
+  OpenProject/
+    docker-compose.yml
+    icon.png
+    thumbnail.png
+    screenshot-1.png
+    screenshot-2.png
+    screenshot-3.png
 category-list.json
 recommend-list.json
 ```
@@ -98,5 +128,7 @@ Each app follows the ZimaOS AppStore v2/CasaOS schema, has a stable reverse-doma
 ## Upstream projects
 
 - [AliasVault](https://github.com/aliasvault/aliasvault)
+- [SearXNG](https://github.com/searxng/searxng)
+- [OpenProject](https://github.com/opf/openproject)
 - [ZimaOS](https://www.zimaspace.com/zimaos/)
 - [CasaOS AppStore schema](https://github.com/IceWhaleTech/CasaOS-AppStore)

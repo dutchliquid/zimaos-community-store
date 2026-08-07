@@ -4,5 +4,8 @@
   },
   {
     "appid": "searxng"
+  },
+  {
+    "appid": "openproject"
   }
 ]
