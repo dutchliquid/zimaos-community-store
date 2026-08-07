@@ -1,0 +1,239 @@
+name: openproject
+
+services:
+  openproject:
+    image: openproject/openproject:17.6.0
+    container_name: openproject
+    restart: unless-stopped
+    tty: true
+    environment:
+      OPENPROJECT_ADDITIONAL__HOST__NAMES: "[localhost:8083, 127.0.0.1:8083]"
+      OPENPROJECT_DEFAULT__LANGUAGE: "en"
+      OPENPROJECT_HOST__NAME: "localhost:8083"
+      OPENPROJECT_HSTS: "false"
+      OPENPROJECT_HTTPS: "false"
+      SECRET_KEY_BASE: "replace-with-a-128-character-random-secret-before-install"
+    network_mode: bridge
+    ports:
+      - target: 80
+        published: "8083"
+        protocol: tcp
+    volumes:
+      - /DATA/AppData/$AppID/pgdata:/var/openproject/pgdata
+      - /DATA/AppData/$AppID/assets:/var/openproject/assets
+    x-casaos:
+      envs:
+        - container: OPENPROJECT_HOST__NAME
+          description:
+            en_US: Public hostname and port used to access OpenProject, for example 192.168.1.20:8083
+            nl_NL: Publieke hostnaam en poort voor OpenProject, bijvoorbeeld 192.168.1.20:8083
+            de_DE: Öffentlicher Hostname und Port für OpenProject, zum Beispiel 192.168.1.20:8083
+            fr_FR: Nom d’hôte public et port utilisés pour OpenProject, par exemple 192.168.1.20:8083
+            es_ES: Nombre de host público y puerto para acceder a OpenProject, por ejemplo 192.168.1.20:8083
+            it_IT: Nome host pubblico e porta per accedere a OpenProject, ad esempio 192.168.1.20:8083
+        - container: OPENPROJECT_ADDITIONAL__HOST__NAMES
+          description:
+            en_US: Additional allowed hostnames; add aliases only when they are actually used
+            nl_NL: Extra toegestane hostnamen; voeg alleen aliassen toe die werkelijk worden gebruikt
+            de_DE: Zusätzliche erlaubte Hostnamen; nur tatsächlich verwendete Aliase hinzufügen
+            fr_FR: Noms d’hôte supplémentaires autorisés ; ajoutez uniquement les alias réellement utilisés
+            es_ES: Nombres de host adicionales permitidos; añada solo los alias que se utilicen realmente
+            it_IT: Nomi host aggiuntivi consentiti; aggiungi solo gli alias realmente utilizzati
+        - container: OPENPROJECT_DEFAULT__LANGUAGE
+          description:
+            en_US: Default language code used when the instance is initialized
+            nl_NL: Standaardtaalcode die bij de eerste initialisatie wordt gebruikt
+            de_DE: Standard-Sprachcode für die erste Initialisierung der Instanz
+            fr_FR: Code de langue par défaut utilisé lors de l’initialisation de l’instance
+            es_ES: Código de idioma predeterminado utilizado al inicializar la instancia
+            it_IT: Codice della lingua predefinita usato durante l’inizializzazione dell’istanza
+        - container: SECRET_KEY_BASE
+          description:
+            en_US: Required private secret; replace the placeholder with a persistent 128-character random value before installation
+            nl_NL: Verplicht geheim; vervang vóór installatie de tijdelijke waarde door een blijvende willekeurige waarde van 128 tekens
+            de_DE: Erforderliches Geheimnis; den Platzhalter vor der Installation durch einen dauerhaften Zufallswert mit 128 Zeichen ersetzen
+            fr_FR: Secret privé obligatoire ; remplacez la valeur temporaire avant l’installation par une valeur aléatoire persistante de 128 caractères
+            es_ES: Secreto privado obligatorio; antes de instalar, sustituya el marcador por un valor aleatorio persistente de 128 caracteres
+            it_IT: Segreto privato obbligatorio; prima dell’installazione sostituisci il segnaposto con un valore casuale persistente di 128 caratteri
+      ports:
+        - container: "80"
+          description:
+            en_US: OpenProject web interface
+            nl_NL: OpenProject-webinterface
+            de_DE: OpenProject-Weboberfläche
+            fr_FR: Interface web OpenProject
+            es_ES: Interfaz web de OpenProject
+            it_IT: Interfaccia web di OpenProject
+      volumes:
+        - container: /var/openproject/pgdata
+          description:
+            en_US: Persistent PostgreSQL database data
+            nl_NL: Blijvende PostgreSQL-databasegegevens
+            de_DE: Dauerhafte PostgreSQL-Datenbankdaten
+            fr_FR: Données persistantes de la base PostgreSQL
+            es_ES: Datos persistentes de la base de datos PostgreSQL
+            it_IT: Dati persistenti del database PostgreSQL
+        - container: /var/openproject/assets
+          description:
+            en_US: Persistent attachments and application assets
+            nl_NL: Blijvende bijlagen en applicatiebestanden
+            de_DE: Dauerhafte Anhänge und Anwendungsdateien
+            fr_FR: Pièces jointes et fichiers applicatifs persistants
+            es_ES: Archivos adjuntos y recursos persistentes de la aplicación
+            it_IT: Allegati e risorse persistenti dell’applicazione
+
+x-casaos:
+  id: com.dutchliquid.openproject
+  architectures:
+    - amd64
+    - arm64
+  main: openproject
+  author: DutchLiquid
+  developer: OpenProject GmbH
+  category: Productivity
+  version: "17.6.0"
+  update_at: "2026-08-07"
+  icon: https://raw.githubusercontent.com/dutchliquid/zimaos-community-store/main/Apps/OpenProject/icon.png
+  thumbnail: https://raw.githubusercontent.com/dutchliquid/zimaos-community-store/main/Apps/OpenProject/thumbnail.png
+  screenshot_link:
+    - https://raw.githubusercontent.com/dutchliquid/zimaos-community-store/main/Apps/OpenProject/screenshot-1.png
+    - https://raw.githubusercontent.com/dutchliquid/zimaos-community-store/main/Apps/OpenProject/screenshot-2.png
+    - https://raw.githubusercontent.com/dutchliquid/zimaos-community-store/main/Apps/OpenProject/screenshot-3.png
+  title:
+    en_US: OpenProject
+    nl_NL: OpenProject
+    de_DE: OpenProject
+    fr_FR: OpenProject
+    es_ES: OpenProject
+    it_IT: OpenProject
+  tagline:
+    en_US: Open-source project management for classic, agile, and hybrid teams
+    nl_NL: Opensource projectmanagement voor klassieke, agile en hybride teams
+    de_DE: Open-Source-Projektmanagement für klassische, agile und hybride Teams
+    fr_FR: Gestion de projet open source pour les équipes classiques, agiles et hybrides
+    es_ES: Gestión de proyectos de código abierto para equipos clásicos, ágiles e híbridos
+    it_IT: Gestione progetti open source per team classici, agili e ibridi
+  description:
+    en_US: |
+      OpenProject Community Edition is a powerful open-source platform for planning, tracking, and delivering projects in one place. It supports traditional project plans, agile workflows, and hybrid teams while keeping project data on your own ZimaOS server.
+
+      Highlights:
+      - Plan schedules with interactive Gantt charts and roadmaps
+      - Track tasks, bugs, milestones, priorities, and dependencies
+      - Organize agile work with boards, backlogs, and sprint planning
+      - Record time, costs, meetings, documents, and project knowledge
+      - Collaborate with notifications, comments, roles, and permissions
+      - Keep the database and uploaded files in portable ZimaOS storage
+    nl_NL: |
+      OpenProject Community Edition is een krachtig opensourceplatform om projecten op één plek te plannen, volgen en opleveren. Het ondersteunt traditionele projectplannen, agile werkmethoden en hybride teams, terwijl alle projectgegevens op je eigen ZimaOS-server blijven.
+
+      Hoogtepunten:
+      - Plan tijdlijnen met interactieve Gantt-diagrammen en roadmaps
+      - Beheer taken, bugs, mijlpalen, prioriteiten en afhankelijkheden
+      - Organiseer agile werk met borden, backlogs en sprintplanning
+      - Registreer tijd, kosten, vergaderingen, documenten en projectkennis
+      - Werk samen met meldingen, opmerkingen, rollen en rechten
+      - Bewaar de database en uploads in draagbare ZimaOS-opslag
+    de_DE: |
+      OpenProject Community Edition ist eine leistungsfähige Open-Source-Plattform, mit der Projekte an einem Ort geplant, verfolgt und umgesetzt werden können. Sie unterstützt klassische Projektpläne, agile Arbeitsweisen und hybride Teams, während alle Projektdaten auf dem eigenen ZimaOS-Server bleiben.
+
+      Highlights:
+      - Zeitpläne mit interaktiven Gantt-Diagrammen und Roadmaps planen
+      - Aufgaben, Fehler, Meilensteine, Prioritäten und Abhängigkeiten verfolgen
+      - Agile Arbeit mit Boards, Backlogs und Sprint-Planung organisieren
+      - Zeiten, Kosten, Besprechungen, Dokumente und Projektwissen erfassen
+      - Mit Benachrichtigungen, Kommentaren, Rollen und Berechtigungen zusammenarbeiten
+      - Datenbank und Uploads im portablen ZimaOS-Speicher behalten
+    fr_FR: |
+      OpenProject Community Edition est une puissante plateforme open source pour planifier, suivre et réaliser des projets au même endroit. Elle prend en charge les plans de projet classiques, les méthodes agiles et les équipes hybrides, tout en conservant les données sur votre propre serveur ZimaOS.
+
+      Points forts :
+      - Planifier les calendriers avec des diagrammes de Gantt interactifs et des feuilles de route
+      - Suivre les tâches, anomalies, jalons, priorités et dépendances
+      - Organiser le travail agile avec des tableaux, backlogs et sprints
+      - Enregistrer le temps, les coûts, les réunions, les documents et les connaissances
+      - Collaborer avec des notifications, commentaires, rôles et autorisations
+      - Conserver la base de données et les fichiers dans le stockage portable de ZimaOS
+    es_ES: |
+      OpenProject Community Edition es una potente plataforma de código abierto para planificar, seguir y entregar proyectos desde un único lugar. Admite planes de proyecto tradicionales, metodologías ágiles y equipos híbridos, manteniendo los datos en su propio servidor ZimaOS.
+
+      Características destacadas:
+      - Planificación mediante diagramas de Gantt interactivos y hojas de ruta
+      - Seguimiento de tareas, errores, hitos, prioridades y dependencias
+      - Organización del trabajo ágil con tableros, backlogs y sprints
+      - Registro de tiempo, costes, reuniones, documentos y conocimiento del proyecto
+      - Colaboración mediante notificaciones, comentarios, roles y permisos
+      - Conservación de la base de datos y los archivos en el almacenamiento portátil de ZimaOS
+    it_IT: |
+      OpenProject Community Edition è una potente piattaforma open source per pianificare, monitorare e completare i progetti in un unico luogo. Supporta piani di progetto tradizionali, flussi di lavoro agili e team ibridi, mantenendo i dati sul proprio server ZimaOS.
+
+      Funzionalità principali:
+      - Pianificazione con diagrammi di Gantt interattivi e roadmap
+      - Monitoraggio di attività, errori, milestone, priorità e dipendenze
+      - Organizzazione del lavoro agile con board, backlog e sprint
+      - Registrazione di tempi, costi, riunioni, documenti e conoscenze di progetto
+      - Collaborazione tramite notifiche, commenti, ruoli e autorizzazioni
+      - Database e file conservati nell’archiviazione portabile di ZimaOS
+  tips:
+    before_install:
+      en_US: |
+        **Before installation**
+
+        1. Set `OPENPROJECT_HOST__NAME` to the address you will actually use, such as `192.168.1.20:8083` or `openproject.example.com`.
+        2. Replace `SECRET_KEY_BASE` with a cryptographically random 128-character value and keep it unchanged. Losing or changing it can make existing sessions and encrypted data unreadable.
+        3. OpenProject starts in HTTP mode for simple local access. Use a trusted HTTPS reverse proxy before exposing it outside your home network.
+
+        The first startup can take several minutes. Sign in with `admin` / `admin` and change the password immediately. The all-in-one image is convenient for home use; OpenProject recommends its multi-container setup for larger production deployments.
+      nl_NL: |
+        **Voor de installatie**
+
+        1. Stel `OPENPROJECT_HOST__NAME` in op het adres dat je werkelijk gebruikt, bijvoorbeeld `192.168.1.20:8083` of `openproject.example.com`.
+        2. Vervang `SECRET_KEY_BASE` door een cryptografisch willekeurige waarde van 128 tekens en wijzig deze daarna niet meer. Verlies of wijziging kan bestaande sessies en versleutelde gegevens onleesbaar maken.
+        3. OpenProject start in HTTP-modus voor eenvoudige lokale toegang. Gebruik een betrouwbare HTTPS-reverse-proxy voordat je de dienst buiten je thuisnetwerk beschikbaar maakt.
+
+        De eerste start kan enkele minuten duren. Meld je aan met `admin` / `admin` en wijzig het wachtwoord direct. De alles-in-één-image is handig voor thuisgebruik; OpenProject adviseert de opstelling met meerdere containers voor grotere productieomgevingen.
+      de_DE: |
+        **Vor der Installation**
+
+        1. Setze `OPENPROJECT_HOST__NAME` auf die tatsächlich verwendete Adresse, zum Beispiel `192.168.1.20:8083` oder `openproject.example.com`.
+        2. Ersetze `SECRET_KEY_BASE` durch einen kryptografisch zufälligen Wert mit 128 Zeichen und ändere ihn danach nicht mehr. Ein Verlust oder eine Änderung kann Sitzungen und verschlüsselte Daten unlesbar machen.
+        3. OpenProject startet für den einfachen lokalen Zugriff im HTTP-Modus. Vor einer Freigabe außerhalb des Heimnetzes sollte ein vertrauenswürdiger HTTPS-Reverse-Proxy verwendet werden.
+
+        Der erste Start kann mehrere Minuten dauern. Melde dich mit `admin` / `admin` an und ändere das Passwort sofort. Das All-in-One-Image ist praktisch für den Heimgebrauch; für größere Produktivsysteme empfiehlt OpenProject die Multi-Container-Installation.
+      fr_FR: |
+        **Avant l’installation**
+
+        1. Définissez `OPENPROJECT_HOST__NAME` sur l’adresse réellement utilisée, par exemple `192.168.1.20:8083` ou `openproject.example.com`.
+        2. Remplacez `SECRET_KEY_BASE` par une valeur cryptographiquement aléatoire de 128 caractères et ne la modifiez plus. Sa perte ou sa modification peut rendre les sessions et les données chiffrées illisibles.
+        3. OpenProject démarre en mode HTTP pour faciliter l’accès local. Utilisez un proxy inverse HTTPS fiable avant toute exposition hors de votre réseau domestique.
+
+        Le premier démarrage peut prendre plusieurs minutes. Connectez-vous avec `admin` / `admin` et changez immédiatement le mot de passe. L’image tout-en-un convient à un usage domestique ; OpenProject recommande son installation multi-conteneurs pour les déploiements de production plus importants.
+      es_ES: |
+        **Antes de la instalación**
+
+        1. Establezca `OPENPROJECT_HOST__NAME` en la dirección que utilizará realmente, por ejemplo `192.168.1.20:8083` u `openproject.example.com`.
+        2. Sustituya `SECRET_KEY_BASE` por un valor criptográficamente aleatorio de 128 caracteres y no lo cambie después. Perderlo o modificarlo puede hacer ilegibles las sesiones y los datos cifrados existentes.
+        3. OpenProject se inicia en modo HTTP para facilitar el acceso local. Utilice un proxy inverso HTTPS de confianza antes de exponerlo fuera de su red doméstica.
+
+        El primer inicio puede tardar varios minutos. Inicie sesión con `admin` / `admin` y cambie la contraseña inmediatamente. La imagen todo en uno es práctica para uso doméstico; OpenProject recomienda su instalación con varios contenedores para entornos de producción mayores.
+      it_IT: |
+        **Prima dell’installazione**
+
+        1. Imposta `OPENPROJECT_HOST__NAME` sull’indirizzo che userai realmente, ad esempio `192.168.1.20:8083` oppure `openproject.example.com`.
+        2. Sostituisci `SECRET_KEY_BASE` con un valore crittograficamente casuale di 128 caratteri e non modificarlo in seguito. Perderlo o cambiarlo può rendere illeggibili le sessioni e i dati cifrati esistenti.
+        3. OpenProject si avvia in modalità HTTP per facilitare l’accesso locale. Usa un reverse proxy HTTPS affidabile prima di esporlo fuori dalla rete domestica.
+
+        Il primo avvio può richiedere alcuni minuti. Accedi con `admin` / `admin` e cambia subito la password. L’immagine all-in-one è comoda per l’uso domestico; OpenProject consiglia l’installazione multi-container per ambienti di produzione più grandi.
+  index: /
+  port_map: "8083"
+  scheme: http
+  release_notes:
+    en_US: Initial OpenProject 17.6.0 release for the DutchLiquid ZimaOS Community Store.
+    nl_NL: Eerste OpenProject 17.6.0-uitgave voor de DutchLiquid ZimaOS Community Store.
+    de_DE: Erste OpenProject-17.6.0-Veröffentlichung für den DutchLiquid ZimaOS Community Store.
+    fr_FR: Première version d’OpenProject 17.6.0 pour le DutchLiquid ZimaOS Community Store.
+    es_ES: Primera versión de OpenProject 17.6.0 para DutchLiquid ZimaOS Community Store.
+    it_IT: Prima versione di OpenProject 17.6.0 per DutchLiquid ZimaOS Community Store.
+  website: https://www.openproject.org/
+  repo: https://github.com/opf/openproject
+  support: https://community.openproject.org/projects/openproject/forums
