@@ -1,0 +1,336 @@
+name: apache-superset
+
+networks:
+  default:
+    name: apache-superset_default
+    external: false
+
+services:
+  config-init:
+    image: alpine:3.22
+    restart: "no"
+    command:
+      - /bin/sh
+      - -ec
+      - |
+        mkdir -p /superset_home
+
+        if [ ! -s /superset_home/secret_key ]; then
+          head -c 48 /dev/urandom | base64 | tr -d '\n' > /superset_home/secret_key
+        fi
+
+        cat > /superset_home/superset_config.py <<'PYEOF'
+        from pathlib import Path
+
+        SUPERSET_HOME = "/app/superset_home"
+        SECRET_KEY = Path("/app/superset_home/secret_key").read_text().strip()
+        SQLALCHEMY_DATABASE_URI = "sqlite:////app/superset_home/superset.db"
+
+        # Friendly single-node defaults for low-power hardware.
+        WTF_CSRF_ENABLED = True
+        ENABLE_PROXY_FIX = True
+        ROW_LIMIT = 50000
+        SUPERSET_WEBSERVER_TIMEOUT = 120
+        PYEOF
+
+        chmod 600 /superset_home/secret_key
+        chmod 644 /superset_home/superset_config.py
+    networks:
+      - default
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/superset_home
+        target: /superset_home
+        bind:
+          create_host_path: true
+
+  superset-init:
+    image: apache/superset:6.0.0
+    restart: "no"
+    user: root
+    depends_on:
+      config-init:
+        condition: service_completed_successfully
+        required: true
+    environment:
+      SUPERSET_ADMIN_EMAIL: admin@superset.local
+      SUPERSET_ADMIN_FIRSTNAME: Superset
+      SUPERSET_ADMIN_LASTNAME: Admin
+      SUPERSET_ADMIN_PASSWORD: supersetadmin
+      SUPERSET_ADMIN_USERNAME: admin
+      SUPERSET_CONFIG_PATH: /app/superset_home/superset_config.py
+      SUPERSET_HOME: /app/superset_home
+    command:
+      - /bin/sh
+      - -ec
+      - |
+        set -e
+
+        echo "==> Upgrading Superset metadata database"
+        superset db upgrade
+
+        echo "==> Initializing Superset roles and permissions"
+        superset init
+
+        echo "==> Creating the administrator account when it does not exist"
+        superset fab create-admin \
+          --username "$${SUPERSET_ADMIN_USERNAME}" \
+          --firstname "$${SUPERSET_ADMIN_FIRSTNAME}" \
+          --lastname "$${SUPERSET_ADMIN_LASTNAME}" \
+          --email "$${SUPERSET_ADMIN_EMAIL}" \
+          --password "$${SUPERSET_ADMIN_PASSWORD}" || true
+
+        superset fab list-users
+    networks:
+      - default
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/superset_home
+        target: /app/superset_home
+        bind:
+          create_host_path: true
+    x-casaos:
+      envs:
+        - container: SUPERSET_ADMIN_USERNAME
+          description:
+            en_US: Administrator username created during the first initialization
+            nl_NL: Beheerdersnaam die tijdens de eerste initialisatie wordt aangemaakt
+            de_DE: Administratorname, der bei der ersten Initialisierung erstellt wird
+            fr_FR: Nom administrateur créé lors de la première initialisation
+            es_ES: Nombre del administrador creado durante la primera inicialización
+            it_IT: Nome amministratore creato durante la prima inizializzazione
+        - container: SUPERSET_ADMIN_PASSWORD
+          description:
+            en_US: Initial administrator password; change it in Superset immediately after signing in
+            nl_NL: Eerste beheerderswachtwoord; wijzig dit direct na het aanmelden in Superset
+            de_DE: Initiales Administratorpasswort; nach der Anmeldung sofort in Superset ändern
+            fr_FR: Mot de passe administrateur initial ; modifiez-le dans Superset après la connexion
+            es_ES: Contraseña inicial del administrador; cámbiela en Superset tras iniciar sesión
+            it_IT: Password iniziale dell’amministratore; modificala in Superset dopo l’accesso
+        - container: SUPERSET_ADMIN_EMAIL
+          description:
+            en_US: Email address assigned to the initial administrator account
+            nl_NL: E-mailadres voor het eerste beheerdersaccount
+            de_DE: E-Mail-Adresse des initialen Administratorkontos
+            fr_FR: Adresse e-mail du compte administrateur initial
+            es_ES: Correo electrónico de la cuenta de administrador inicial
+            it_IT: Indirizzo email dell’account amministratore iniziale
+
+  superset:
+    image: apache/superset:6.0.0
+    container_name: apache-superset
+    restart: unless-stopped
+    user: root
+    depends_on:
+      superset-init:
+        condition: service_completed_successfully
+        required: true
+    environment:
+      SUPERSET_CONFIG_PATH: /app/superset_home/superset_config.py
+      SUPERSET_HOME: /app/superset_home
+      SUPERSET_LOG_LEVEL: info
+    command:
+      - /bin/sh
+      - -ec
+      - |
+        exec gunicorn \
+          --workers 2 \
+          --timeout 120 \
+          --bind 0.0.0.0:8088 \
+          --limit-request-line 0 \
+          --limit-request-field_size 0 \
+          "superset.app:create_app()"
+    networks:
+      - default
+    ports:
+      - target: 8088
+        published: "8088"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/superset_home
+        target: /app/superset_home
+        bind:
+          create_host_path: true
+    x-casaos:
+      ports:
+        - container: "8088"
+          description:
+            en_US: Apache Superset web interface
+            nl_NL: Apache Superset-webinterface
+            de_DE: Apache-Superset-Weboberfläche
+            fr_FR: Interface web Apache Superset
+            es_ES: Interfaz web de Apache Superset
+            it_IT: Interfaccia web di Apache Superset
+      volumes:
+        - container: /app/superset_home
+          description:
+            en_US: Persistent configuration, secret key, and SQLite metadata database
+            nl_NL: Blijvende configuratie, geheime sleutel en SQLite-metadatabase
+            de_DE: Dauerhafte Konfiguration, geheimer Schlüssel und SQLite-Metadatenbank
+            fr_FR: Configuration persistante, clé secrète et base de métadonnées SQLite
+            es_ES: Configuración persistente, clave secreta y base de metadatos SQLite
+            it_IT: Configurazione persistente, chiave segreta e database metadati SQLite
+
+x-casaos:
+  id: com.dutchliquid.apache-superset
+  architectures:
+    - amd64
+    - arm64
+  main: superset
+  author: DutchLiquid
+  developer: Apache Software Foundation
+  category: Productivity
+  version: "6.0.0"
+  update_at: "2026-08-07"
+  icon: https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/apache-superset.png
+  thumbnail: https://superset.apache.org/img/screenshots/dashboard.jpg
+  screenshot_link:
+    - https://superset.apache.org/img/screenshots/gallery.jpg
+    - https://superset.apache.org/img/screenshots/dashboard.jpg
+    - https://superset.apache.org/img/screenshots/explore.jpg
+  title:
+    en_US: Apache Superset
+    nl_NL: Apache Superset
+    de_DE: Apache Superset
+    fr_FR: Apache Superset
+    es_ES: Apache Superset
+    it_IT: Apache Superset
+  tagline:
+    en_US: Open-source business intelligence, charts, and interactive dashboards
+    nl_NL: Opensource business intelligence, grafieken en interactieve dashboards
+    de_DE: Open-Source-Business-Intelligence, Diagramme und interaktive Dashboards
+    fr_FR: Business intelligence open source, graphiques et tableaux de bord interactifs
+    es_ES: Inteligencia empresarial de código abierto, gráficos y paneles interactivos
+    it_IT: Business intelligence open source, grafici e dashboard interattive
+  description:
+    en_US: |
+      Apache Superset is a modern open-source platform for exploring data and building rich, interactive business-intelligence dashboards. This ZimaOS package uses a lightweight single-node setup with a persistent SQLite metadata database, making it approachable for home labs and small teams.
+
+      Highlights:
+      - Build charts through a no-code visual interface
+      - Create interactive dashboards with filters and drill-downs
+      - Query data with the integrated SQL Lab editor
+      - Connect many SQL databases by adding their Python drivers
+      - Keep configuration and metadata in portable ZimaOS storage
+
+      This lightweight profile does not include Redis or Celery, so scheduled reports and asynchronous features are unavailable.
+    nl_NL: |
+      Apache Superset is een modern opensourceplatform om gegevens te verkennen en rijke, interactieve business-intelligence-dashboards te bouwen. Dit ZimaOS-pakket gebruikt een lichte opstelling op één node met een blijvende SQLite-metadatabase en is daardoor geschikt voor homelabs en kleine teams.
+
+      Hoogtepunten:
+      - Bouw grafieken via een visuele interface zonder code
+      - Maak interactieve dashboards met filters en drill-downs
+      - Bevraag gegevens met de geïntegreerde SQL Lab-editor
+      - Verbind veel SQL-databases door de bijbehorende Python-drivers toe te voegen
+      - Bewaar configuratie en metadata in draagbare ZimaOS-opslag
+
+      Dit lichte profiel bevat geen Redis of Celery; geplande rapporten en asynchrone functies zijn daarom niet beschikbaar.
+    de_DE: |
+      Apache Superset ist eine moderne Open-Source-Plattform zur Datenanalyse und zum Erstellen umfangreicher, interaktiver Business-Intelligence-Dashboards. Dieses ZimaOS-Paket verwendet eine ressourcenschonende Einzelknoten-Konfiguration mit einer dauerhaften SQLite-Metadatenbank und eignet sich für Homelabs und kleine Teams.
+
+      Highlights:
+      - Diagramme über eine visuelle No-Code-Oberfläche erstellen
+      - Interaktive Dashboards mit Filtern und Drill-downs gestalten
+      - Daten mit dem integrierten SQL-Lab-Editor abfragen
+      - Viele SQL-Datenbanken durch zusätzliche Python-Treiber anbinden
+      - Konfiguration und Metadaten im portablen ZimaOS-Speicher behalten
+
+      Dieses leichte Profil enthält weder Redis noch Celery; geplante Berichte und asynchrone Funktionen stehen daher nicht zur Verfügung.
+    fr_FR: |
+      Apache Superset est une plateforme open source moderne pour explorer les données et créer des tableaux de bord de business intelligence riches et interactifs. Ce paquet ZimaOS utilise une configuration légère à nœud unique avec une base de métadonnées SQLite persistante, adaptée aux laboratoires personnels et aux petites équipes.
+
+      Points forts :
+      - Créer des graphiques avec une interface visuelle sans code
+      - Concevoir des tableaux de bord interactifs avec filtres et exploration
+      - Interroger les données avec l’éditeur SQL Lab intégré
+      - Connecter de nombreuses bases SQL en ajoutant leurs pilotes Python
+      - Conserver la configuration et les métadonnées dans le stockage ZimaOS
+
+      Ce profil léger n’inclut ni Redis ni Celery ; les rapports planifiés et les fonctions asynchrones ne sont donc pas disponibles.
+    es_ES: |
+      Apache Superset es una moderna plataforma de código abierto para explorar datos y crear paneles de inteligencia empresarial completos e interactivos. Este paquete para ZimaOS utiliza una configuración ligera de un solo nodo con una base de metadatos SQLite persistente, adecuada para laboratorios domésticos y equipos pequeños.
+
+      Características destacadas:
+      - Crear gráficos mediante una interfaz visual sin código
+      - Diseñar paneles interactivos con filtros y exploración detallada
+      - Consultar datos con el editor SQL Lab integrado
+      - Conectar numerosas bases de datos SQL añadiendo sus controladores Python
+      - Guardar la configuración y los metadatos en el almacenamiento portátil de ZimaOS
+
+      Este perfil ligero no incluye Redis ni Celery; los informes programados y las funciones asíncronas no están disponibles.
+    it_IT: |
+      Apache Superset è una moderna piattaforma open source per esplorare i dati e creare dashboard di business intelligence ricche e interattive. Questo pacchetto ZimaOS usa una configurazione leggera a nodo singolo con un database metadati SQLite persistente, adatta a homelab e piccoli team.
+
+      Funzionalità principali:
+      - Creare grafici tramite un’interfaccia visuale senza codice
+      - Realizzare dashboard interattive con filtri e analisi dettagliate
+      - Interrogare i dati con l’editor SQL Lab integrato
+      - Collegare numerosi database SQL aggiungendo i relativi driver Python
+      - Conservare configurazione e metadati nello storage portabile di ZimaOS
+
+      Questo profilo leggero non include Redis né Celery; i report pianificati e le funzioni asincrone non sono quindi disponibili.
+  tips:
+    before_install:
+      en_US: |
+        **Before installation**
+
+        The initial login is `admin` / `supersetadmin`. Change this password immediately after the first login. You can edit the initial username, password, and email in the installation form before installing.
+
+        The first startup performs database migrations and can take several minutes. The secret key is generated automatically and stored persistently under `/DATA/AppData/$AppID/superset_home`.
+
+        This package is intended for trusted local networks. Use an HTTPS reverse proxy before exposing Superset to the internet. The official release image includes only a limited set of optional database drivers; a custom image is required for additional drivers.
+      nl_NL: |
+        **Voor de installatie**
+
+        De eerste aanmelding is `admin` / `supersetadmin`. Wijzig dit wachtwoord direct na de eerste aanmelding. Je kunt de eerste gebruikersnaam, het wachtwoord en het e-mailadres vóór installatie in het installatieformulier aanpassen.
+
+        Bij de eerste start worden databasemigraties uitgevoerd; dit kan enkele minuten duren. De geheime sleutel wordt automatisch gegenereerd en blijvend opgeslagen onder `/DATA/AppData/$AppID/superset_home`.
+
+        Dit pakket is bedoeld voor vertrouwde lokale netwerken. Gebruik een HTTPS-reverse-proxy voordat je Superset op internet beschikbaar maakt. De officiële release-image bevat slechts een beperkt aantal optionele databasedrivers; voor extra drivers is een aangepaste image nodig.
+      de_DE: |
+        **Vor der Installation**
+
+        Die erste Anmeldung lautet `admin` / `supersetadmin`. Ändere dieses Passwort sofort nach der ersten Anmeldung. Benutzername, Passwort und E-Mail-Adresse können vor der Installation im Installationsformular geändert werden.
+
+        Beim ersten Start werden Datenbankmigrationen ausgeführt; dies kann mehrere Minuten dauern. Der geheime Schlüssel wird automatisch erzeugt und dauerhaft unter `/DATA/AppData/$AppID/superset_home` gespeichert.
+
+        Dieses Paket ist für vertrauenswürdige lokale Netzwerke vorgesehen. Vor einer Freigabe im Internet sollte ein HTTPS-Reverse-Proxy verwendet werden. Das offizielle Release-Image enthält nur eine begrenzte Auswahl optionaler Datenbanktreiber; für weitere Treiber ist ein eigenes Image erforderlich.
+      fr_FR: |
+        **Avant l’installation**
+
+        La première connexion utilise `admin` / `supersetadmin`. Modifiez ce mot de passe immédiatement après la première connexion. Le nom d’utilisateur, le mot de passe et l’adresse e-mail initiaux peuvent être modifiés dans le formulaire d’installation.
+
+        Le premier démarrage effectue les migrations de base de données et peut prendre plusieurs minutes. La clé secrète est générée automatiquement et stockée durablement sous `/DATA/AppData/$AppID/superset_home`.
+
+        Ce paquet est destiné aux réseaux locaux de confiance. Utilisez un proxy inverse HTTPS avant d’exposer Superset à Internet. L’image officielle inclut peu de pilotes de base de données facultatifs ; une image personnalisée est nécessaire pour en ajouter.
+      es_ES: |
+        **Antes de la instalación**
+
+        El primer acceso utiliza `admin` / `supersetadmin`. Cambie esta contraseña inmediatamente. Puede editar el nombre de usuario, la contraseña y el correo iniciales en el formulario de instalación.
+
+        El primer arranque realiza migraciones de base de datos y puede tardar varios minutos. La clave secreta se genera automáticamente y se conserva en `/DATA/AppData/$AppID/superset_home`.
+
+        Este paquete está pensado para redes locales de confianza. Utilice un proxy inverso HTTPS antes de exponer Superset a Internet. La imagen oficial incluye pocos controladores de base de datos opcionales; para añadir más se necesita una imagen personalizada.
+      it_IT: |
+        **Prima dell’installazione**
+
+        Il primo accesso usa `admin` / `supersetadmin`. Cambia subito questa password. Puoi modificare nome utente, password ed e-mail iniziali nel modulo di installazione.
+
+        Il primo avvio esegue le migrazioni del database e può richiedere diversi minuti. La chiave segreta viene generata automaticamente e conservata in `/DATA/AppData/$AppID/superset_home`.
+
+        Questo pacchetto è pensato per reti locali affidabili. Usa un reverse proxy HTTPS prima di esporre Superset a Internet. L’immagine ufficiale include pochi driver database opzionali; per aggiungerne altri è necessaria un’immagine personalizzata.
+  index: /
+  port_map: "8088"
+  scheme: http
+  release_notes:
+    en_US: Initial Apache Superset 6.0.0 release for the DutchLiquid ZimaOS Community Store.
+    nl_NL: Eerste Apache Superset 6.0.0-uitgave voor de DutchLiquid ZimaOS Community Store.
+    de_DE: Erste Apache-Superset-6.0.0-Veröffentlichung für den DutchLiquid ZimaOS Community Store.
+    fr_FR: Première version d’Apache Superset 6.0.0 pour DutchLiquid ZimaOS Community Store.
+    es_ES: Primera versión de Apache Superset 6.0.0 para DutchLiquid ZimaOS Community Store.
+    it_IT: Prima versione di Apache Superset 6.0.0 per DutchLiquid ZimaOS Community Store.
+  website: https://superset.apache.org/
+  repo: https://github.com/apache/superset
+  support: https://github.com/apache/superset/discussions
+  docs: https://superset.apache.org/docs/intro
