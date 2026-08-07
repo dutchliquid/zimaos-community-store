@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "store_id": "com.dutchliquid.zimaos",
+  "name": {
+    "en_US": "DutchLiquid ZimaOS Community Store",
+    "nl_NL": "DutchLiquid ZimaOS Community Store"
+  },
+  "description": {
+    "en_US": "Privacy-focused and carefully packaged community apps for ZimaOS.",
+    "nl_NL": "Privacyvriendelijke en zorgvuldig verpakte community-apps voor ZimaOS."
+  },
+  "maintainer": "DutchLiquid",
+  "url": "https://github.com/dutchliquid/zimaos-community-store",
+  "icon": "https://raw.githubusercontent.com/dutchliquid/zimaos-community-store/main/Apps/AliasVault/icon.png"
+}
