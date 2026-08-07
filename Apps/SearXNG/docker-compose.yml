@@ -1,0 +1,135 @@
+name: searxng
+
+services:
+  searxng:
+    image: docker.io/searxng/searxng:latest
+    container_name: searxng
+    restart: unless-stopped
+    environment:
+      FORCE_OWNERSHIP: "true"
+      SEARXNG_BASE_URL: "http://localhost:8099/"
+      SEARXNG_DEBUG: "false"
+      SEARXNG_IMAGE_PROXY: "false"
+      SEARXNG_PUBLIC_INSTANCE: "false"
+      SEARXNG_SECRET: "change-me-to-a-long-random-secret"
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - wget -qO- http://127.0.0.1:8080/healthz || exit 1
+      timeout: 5s
+      interval: 30s
+      retries: 5
+    network_mode: bridge
+    ports:
+      - target: 8080
+        published: "8099"
+        protocol: tcp
+    volumes:
+      - /DATA/AppData/$AppID/config:/etc/searxng
+      - /DATA/AppData/$AppID/cache:/var/cache/searxng
+    x-casaos:
+      envs:
+        - container: SEARXNG_BASE_URL
+          description:
+            en_US: Public URL of this SearXNG instance; keep localhost for local access or replace it with your reverse-proxy URL
+            nl_NL: Publieke URL van deze SearXNG-instantie; gebruik localhost voor lokale toegang of vul de URL van je reverse proxy in
+        - container: SEARXNG_SECRET
+          description:
+            en_US: Required private secret; replace the default with a long random value before first use
+            nl_NL: Verplicht geheim; vervang de standaardwaarde voor het eerste gebruik door een lange willekeurige waarde
+        - container: SEARXNG_IMAGE_PROXY
+          description:
+            en_US: Proxy image-result thumbnails through SearXNG for additional privacy
+            nl_NL: Leid miniaturen van afbeeldingsresultaten via SearXNG voor extra privacy
+        - container: SEARXNG_PUBLIC_INSTANCE
+          description:
+            en_US: Enable only when intentionally operating a public instance
+            nl_NL: Alleen inschakelen wanneer je bewust een openbare instantie beheert
+        - container: SEARXNG_DEBUG
+          description:
+            en_US: Development diagnostics; leave disabled for normal use
+            nl_NL: Diagnostiek voor ontwikkeling; laat uitgeschakeld bij normaal gebruik
+      ports:
+        - container: "8080"
+          description:
+            en_US: SearXNG web interface
+            nl_NL: SearXNG-webinterface
+      volumes:
+        - container: /etc/searxng
+          description:
+            en_US: Persistent SearXNG configuration
+            nl_NL: Blijvende SearXNG-configuratie
+        - container: /var/cache/searxng
+          description:
+            en_US: Persistent application cache
+            nl_NL: Blijvende applicatiecache
+
+x-casaos:
+  id: com.dutchliquid.searxng
+  architectures:
+    - amd64
+    - arm64
+  main: searxng
+  author: DutchLiquid
+  developer: SearXNG
+  category: Networking
+  version: "1.0.0"
+  update_at: "2026-08-07"
+  icon: https://raw.githubusercontent.com/dutchliquid/zimaos-community-store/main/Apps/SearXNG/icon.png
+  thumbnail: https://raw.githubusercontent.com/dutchliquid/zimaos-community-store/main/Apps/SearXNG/thumbnail.png
+  screenshot_link:
+    - https://raw.githubusercontent.com/dutchliquid/zimaos-community-store/main/Apps/SearXNG/screenshot-1.png
+    - https://raw.githubusercontent.com/dutchliquid/zimaos-community-store/main/Apps/SearXNG/screenshot-2.png
+    - https://raw.githubusercontent.com/dutchliquid/zimaos-community-store/main/Apps/SearXNG/screenshot-3.png
+  title:
+    en_US: SearXNG
+    nl_NL: SearXNG
+  tagline:
+    en_US: Private, self-hosted metasearch without profiling
+    nl_NL: Privé metazoeken zonder tracking of profilering
+  description:
+    en_US: |
+      SearXNG is a free, open-source metasearch engine that combines results from many search services while keeping searches under your control. It does not build advertising profiles, and a self-hosted instance can become the private search engine for every device on your network.
+
+      Highlights:
+      - Aggregates results from a broad collection of search engines
+      - No advertising profile or user tracking
+      - Search categories for web, images, videos, news, maps, science, files, and more
+      - Fine-grained control over engines, language, SafeSearch, and interface preferences
+      - OpenSearch integration for use as a browser's default search engine
+    nl_NL: |
+      SearXNG is een vrije, opensource metazoekmachine die resultaten van veel zoekdiensten combineert terwijl jij de controle over je zoekopdrachten houdt. Er worden geen advertentieprofielen opgebouwd en een zelfgehoste instantie kan de privézoekmachine voor al je apparaten worden.
+
+      Hoogtepunten:
+      - Combineert resultaten van een brede verzameling zoekmachines
+      - Geen advertentieprofiel of gebruikerstracking
+      - Zoekcategorieën voor web, afbeeldingen, video's, nieuws, kaarten, wetenschap, bestanden en meer
+      - Nauwkeurige instellingen voor zoekmachines, taal, SafeSearch en de interface
+      - OpenSearch-integratie voor gebruik als standaardzoekmachine in je browser
+  tips:
+    before_install:
+      en_US: |
+        **Before first use**
+
+        1. Replace `SEARXNG_SECRET` with a long random value. A password manager can generate one for you.
+        2. Open `http://[ZimaOS-IP]:8099` after installation.
+        3. If you publish SearXNG through a domain or reverse proxy, change `SEARXNG_BASE_URL` to the complete public URL, including `https://` and the trailing slash.
+
+        This package intentionally has no hardware-specific memory limit. ZimaOS can manage resources according to your device.
+      nl_NL: |
+        **Voor het eerste gebruik**
+
+        1. Vervang `SEARXNG_SECRET` door een lange willekeurige waarde. Een wachtwoordmanager kan deze voor je genereren.
+        2. Open na de installatie `http://[ZimaOS-IP]:8099`.
+        3. Publiceer je SearXNG via een domein of reverse proxy, wijzig `SEARXNG_BASE_URL` dan in de volledige publieke URL, inclusief `https://` en de afsluitende slash.
+
+        Dit pakket heeft bewust geen hardwarespecifieke geheugenlimiet. ZimaOS kan de bronnen passend bij je apparaat beheren.
+  index: /
+  port_map: "8099"
+  scheme: http
+  release_notes:
+    en_US: Initial SearXNG release for the DutchLiquid ZimaOS Community Store.
+    nl_NL: Eerste SearXNG-uitgave voor de DutchLiquid ZimaOS Community Store.
+  website: https://docs.searxng.org/
+  repo: https://github.com/searxng/searxng
+  support: https://github.com/searxng/searxng/issues
