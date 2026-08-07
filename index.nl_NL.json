@@ -6,6 +6,11 @@
       "tagline": "Privacyvriendelijke wachtwoord- en e-mailaliasmanager"
     },
     {
+      "id": "com.dutchliquid.apache-superset",
+      "title": "Apache Superset",
+      "tagline": "Opensource business intelligence, grafieken en interactieve dashboards"
+    },
+    {
       "id": "com.dutchliquid.openproject",
       "title": "OpenProject",
       "tagline": "Opensource projectmanagement voor klassieke, agile en hybride teams"

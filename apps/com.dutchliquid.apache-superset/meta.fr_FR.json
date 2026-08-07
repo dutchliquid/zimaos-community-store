@@ -1,0 +1,10 @@
+{
+  "id": "com.dutchliquid.apache-superset",
+  "title": "Apache Superset",
+  "description": "Apache Superset est une plateforme open source moderne pour explorer les données et créer des tableaux de bord de business intelligence riches et interactifs. Ce paquet ZimaOS utilise une configuration légère à nœud unique avec une base de métadonnées SQLite persistante, adaptée aux laboratoires personnels et aux petites équipes.\n\nPoints forts :\n- Créer des graphiques avec une interface visuelle sans code\n- Concevoir des tableaux de bord interactifs avec filtres et exploration\n- Interroger les données avec l’éditeur SQL Lab intégré\n- Connecter de nombreuses bases SQL en ajoutant leurs pilotes Python\n- Conserver la configuration et les métadonnées dans le stockage ZimaOS\n\nCe profil léger n’inclut ni Redis ni Celery ; les rapports planifiés et les fonctions asynchrones ne sont donc pas disponibles.\n",
+  "tagline": "Business intelligence open source, graphiques et tableaux de bord interactifs",
+  "release_note": "Première version d’Apache Superset 6.0.0 pour DutchLiquid ZimaOS Community Store.",
+  "tips": {
+    "before_install": "**Avant l’installation**\n\nLa première connexion utilise `admin` / `supersetadmin`. Modifiez ce mot de passe immédiatement après la première connexion. Le nom d’utilisateur, le mot de passe et l’adresse e-mail initiaux peuvent être modifiés dans le formulaire d’installation.\n\nLe premier démarrage effectue les migrations de base de données et peut prendre plusieurs minutes. La clé secrète est générée automatiquement et stockée durablement sous `/DATA/AppData/$AppID/superset_home`.\n\nCe paquet est destiné aux réseaux locaux de confiance. Utilisez un proxy inverse HTTPS avant d’exposer Superset à Internet. L’image officielle inclut peu de pilotes de base de données facultatifs ; une image personnalisée est nécessaire pour en ajouter.\n"
+  }
+}

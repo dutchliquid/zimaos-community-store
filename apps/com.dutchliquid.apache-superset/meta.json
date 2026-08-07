@@ -1,0 +1,38 @@
+{
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "author": "DutchLiquid",
+  "developer": "Apache Software Foundation",
+  "category": "Productivity",
+  "update_at": "2026-08-07",
+  "thumbnail": "/apps/com.dutchliquid.apache-superset/assets/dashboard.webp",
+  "screenshot_link": [
+    "/apps/com.dutchliquid.apache-superset/assets/gallery.webp",
+    "/apps/com.dutchliquid.apache-superset/assets/dashboard.webp",
+    "/apps/com.dutchliquid.apache-superset/assets/explore.webp"
+  ],
+  "tagline": "Open-source business intelligence, charts, and interactive dashboards",
+  "description": "Apache Superset is a modern open-source platform for exploring data and building rich, interactive business-intelligence dashboards. This ZimaOS package uses a lightweight single-node setup with a persistent SQLite metadata database, making it approachable for home labs and small teams.\n\nHighlights:\n- Build charts through a no-code visual interface\n- Create interactive dashboards with filters and drill-downs\n- Query data with the integrated SQL Lab editor\n- Connect many SQL databases by adding their Python drivers\n- Keep configuration and metadata in portable ZimaOS storage\n\nThis lightweight profile does not include Redis or Celery, so scheduled reports and asynchronous features are unavailable.\n",
+  "tips": {
+    "before_install": "**Before installation**\n\nThe initial login is `admin` / `supersetadmin`. Change this password immediately after the first login. You can edit the initial username, password, and email in the installation form before installing.\n\nThe first startup performs database migrations and can take several minutes. The secret key is generated automatically and stored persistently under `/DATA/AppData/$AppID/superset_home`.\n\nThis package is intended for trusted local networks. Use an HTTPS reverse proxy before exposing Superset to the internet. The official release image includes only a limited set of optional database drivers; a custom image is required for additional drivers.\n"
+  },
+  "website": "https://superset.apache.org/",
+  "repo": "https://github.com/apache/superset",
+  "support": "https://github.com/apache/superset/discussions",
+  "docs": "https://superset.apache.org/docs/intro",
+  "title": "Apache Superset",
+  "release_note": "Initial Apache Superset 6.0.0 release for the DutchLiquid ZimaOS Community Store.",
+  "base_url": "https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages",
+  "id": "com.dutchliquid.apache-superset",
+  "version": "6.0.0",
+  "categories": [
+    "productivity"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 268576100,
+    "arm64": 261248304
+  }
+}

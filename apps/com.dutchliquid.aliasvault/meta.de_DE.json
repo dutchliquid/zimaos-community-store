@@ -1,9 +1,9 @@
 {
   "id": "com.dutchliquid.aliasvault",
   "title": "AliasVault",
-  "release_note": "Erste Veröffentlichung im DutchLiquid ZimaOS Community Store.",
   "description": "AliasVault ist ein datenschutzorientierter Open-Source-Manager für Passwörter und E-Mail-Aliasse. Erstelle für jede Website eine eigene Identität, ein starkes Passwort und einen zufälligen E-Mail-Alias, während dein Tresor Ende-zu-Ende-verschlüsselt bleibt.\n\nDieser All-in-One-Container bündelt Datenbank, API, Webclient, Administrationsbereich, SMTP-Server und Reverse-Proxy für eine unkomplizierte Bereitstellung auf ZimaOS.\n\nHighlights:\n- Ende-zu-Ende-verschlüsselter Passwort- und Identitätstresor\n- Integrierte E-Mail-Aliasse und E-Mail-Empfang\n- Browser-Erweiterungen sowie Apps für iOS und Android\n- Administrationsbereich für Benutzer und Systemeinstellungen\n- Ein einzelner Container mit dauerhaftem, von ZimaOS verwaltetem Speicher\n",
   "tagline": "Datenschutzorientierter Passwort- und E-Mail-Alias-Manager",
+  "release_note": "Erste Veröffentlichung im DutchLiquid ZimaOS Community Store.",
   "tips": {
     "before_install": "**Ersteinrichtung**\n\n1. Öffne nach der Installation `http://[ZimaOS-IP]:84`.\n2. Registriere das erste Konto; es wird zum Administratorkonto.\n3. Setze anschließend `PUBLIC_REGISTRATION_ENABLED` auf `false`, um unerwünschte Registrierungen zu verhindern.\n\n**E-Mail-Aliasse (optional)**\n\nDie Ports 25 und 587 werden nur benötigt, wenn AliasVault E-Mails für deine Domain empfängt. Richte den MX-Eintrag der Domain auf deinen Server und setze `PRIVATE_EMAIL_DOMAINS`. Viele private Internetanbieter blockieren eingehenden Verkehr auf Port 25.\n"
   }

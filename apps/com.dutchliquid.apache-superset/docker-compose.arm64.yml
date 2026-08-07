@@ -1,0 +1,108 @@
+name: apache-superset
+networks:
+  default:
+    name: apache-superset_default
+    external: false
+services:
+  config-init:
+    image: alpine:3.22@sha256:2c9d26f410d032d5b1525aa8a873e238b05b90c4ae8618743d4311f0cc827e37
+    restart: 'no'
+    command:
+    - /bin/sh
+    - -ec
+    - "mkdir -p /superset_home\n\nif [ ! -s /superset_home/secret_key ]; then\n  head\
+      \ -c 48 /dev/urandom | base64 | tr -d '\\n' > /superset_home/secret_key\nfi\n\
+      \ncat > /superset_home/superset_config.py <<'PYEOF'\nfrom pathlib import Path\n\
+      \nSUPERSET_HOME = \"/app/superset_home\"\nSECRET_KEY = Path(\"/app/superset_home/secret_key\"\
+      ).read_text().strip()\nSQLALCHEMY_DATABASE_URI = \"sqlite:////app/superset_home/superset.db\"\
+      \n\n# Friendly single-node defaults for low-power hardware.\nWTF_CSRF_ENABLED\
+      \ = True\nENABLE_PROXY_FIX = True\nROW_LIMIT = 50000\nSUPERSET_WEBSERVER_TIMEOUT\
+      \ = 120\nPYEOF\n\nchmod 600 /superset_home/secret_key\nchmod 644 /superset_home/superset_config.py\n"
+    networks:
+    - default
+    volumes:
+    - type: bind
+      source: /DATA/AppData/$AppID/superset_home
+      target: /superset_home
+      bind:
+        create_host_path: true
+  superset-init:
+    image: apache/superset:6.0.0@sha256:060ae2711906d4fddb0b4972881bf98c40262834c1059d54079fc11aa2ac3fc8
+    restart: 'no'
+    user: root
+    depends_on:
+      config-init:
+        condition: service_completed_successfully
+        required: true
+    environment:
+      SUPERSET_ADMIN_EMAIL: admin@superset.local
+      SUPERSET_ADMIN_FIRSTNAME: Superset
+      SUPERSET_ADMIN_LASTNAME: Admin
+      SUPERSET_ADMIN_PASSWORD: supersetadmin
+      SUPERSET_ADMIN_USERNAME: admin
+      SUPERSET_CONFIG_PATH: /app/superset_home/superset_config.py
+      SUPERSET_HOME: /app/superset_home
+    command:
+    - /bin/sh
+    - -ec
+    - "set -e\n\necho \"==> Upgrading Superset metadata database\"\nsuperset db upgrade\n\
+      \necho \"==> Initializing Superset roles and permissions\"\nsuperset init\n\n\
+      echo \"==> Creating the administrator account when it does not exist\"\nsuperset\
+      \ fab create-admin \\\n  --username \"$${SUPERSET_ADMIN_USERNAME}\" \\\n  --firstname\
+      \ \"$${SUPERSET_ADMIN_FIRSTNAME}\" \\\n  --lastname \"$${SUPERSET_ADMIN_LASTNAME}\"\
+      \ \\\n  --email \"$${SUPERSET_ADMIN_EMAIL}\" \\\n  --password \"$${SUPERSET_ADMIN_PASSWORD}\"\
+      \ || true\n\nsuperset fab list-users\n"
+    networks:
+    - default
+    volumes:
+    - type: bind
+      source: /DATA/AppData/$AppID/superset_home
+      target: /app/superset_home
+      bind:
+        create_host_path: true
+  superset:
+    image: apache/superset:6.0.0@sha256:060ae2711906d4fddb0b4972881bf98c40262834c1059d54079fc11aa2ac3fc8
+    container_name: apache-superset
+    restart: unless-stopped
+    user: root
+    depends_on:
+      superset-init:
+        condition: service_completed_successfully
+        required: true
+    environment:
+      SUPERSET_CONFIG_PATH: /app/superset_home/superset_config.py
+      SUPERSET_HOME: /app/superset_home
+      SUPERSET_LOG_LEVEL: info
+    command:
+    - /bin/sh
+    - -ec
+    - "exec gunicorn \\\n  --workers 2 \\\n  --timeout 120 \\\n  --bind 0.0.0.0:8088\
+      \ \\\n  --limit-request-line 0 \\\n  --limit-request-field_size 0 \\\n  \"superset.app:create_app()\"\
+      \n"
+    networks:
+    - default
+    ports:
+    - target: 8088
+      published: '8088'
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: /DATA/AppData/$AppID/superset_home
+      target: /app/superset_home
+      bind:
+        create_host_path: true
+x-casaos:
+  id: com.dutchliquid.apache-superset
+  main: superset
+  version: 6.0.0
+  icon: https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages/apps/com.dutchliquid.apache-superset/assets/icon.png
+  title:
+    en_US: Apache Superset
+    nl_NL: Apache Superset
+    de_DE: Apache Superset
+    fr_FR: Apache Superset
+    es_ES: Apache Superset
+    it_IT: Apache Superset
+  index: /
+  port_map: '8088'
+  scheme: http

@@ -1,9 +1,9 @@
 {
   "id": "com.dutchliquid.openproject",
   "title": "OpenProject",
-  "release_note": "Eerste OpenProject 17.6.0-uitgave voor de DutchLiquid ZimaOS Community Store.",
   "description": "OpenProject Community Edition is een krachtig opensourceplatform om projecten op één plek te plannen, volgen en opleveren. Het ondersteunt traditionele projectplannen, agile werkmethoden en hybride teams, terwijl alle projectgegevens op je eigen ZimaOS-server blijven.\n\nHoogtepunten:\n- Plan tijdlijnen met interactieve Gantt-diagrammen en roadmaps\n- Beheer taken, bugs, mijlpalen, prioriteiten en afhankelijkheden\n- Organiseer agile werk met borden, backlogs en sprintplanning\n- Registreer tijd, kosten, vergaderingen, documenten en projectkennis\n- Werk samen met meldingen, opmerkingen, rollen en rechten\n- Bewaar de database en uploads in draagbare ZimaOS-opslag\n",
   "tagline": "Opensource projectmanagement voor klassieke, agile en hybride teams",
+  "release_note": "Eerste OpenProject 17.6.0-uitgave voor de DutchLiquid ZimaOS Community Store.",
   "tips": {
     "before_install": "**Voor de installatie**\n\n1. Stel `OPENPROJECT_HOST__NAME` in op het adres dat je werkelijk gebruikt, bijvoorbeeld `192.168.1.20:8083` of `openproject.example.com`.\n2. Vervang `SECRET_KEY_BASE` door een cryptografisch willekeurige waarde van 128 tekens en wijzig deze daarna niet meer. Verlies of wijziging kan bestaande sessies en versleutelde gegevens onleesbaar maken.\n3. OpenProject start in HTTP-modus voor eenvoudige lokale toegang. Gebruik een betrouwbare HTTPS-reverse-proxy voordat je de dienst buiten je thuisnetwerk beschikbaar maakt.\n\nDe eerste start kan enkele minuten duren. Meld je aan met `admin` / `admin` en wijzig het wachtwoord direct. De alles-in-één-image is handig voor thuisgebruik; OpenProject adviseert de opstelling met meerdere containers voor grotere productieomgevingen.\n"
   }

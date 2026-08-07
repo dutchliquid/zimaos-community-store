@@ -1,9 +1,9 @@
 {
   "id": "com.dutchliquid.searxng",
   "title": "SearXNG",
-  "release_note": "Primera versión de SearXNG para DutchLiquid ZimaOS Community Store.",
   "description": "SearXNG es un metabuscador libre y de código abierto que combina resultados de numerosos servicios de búsqueda y mantiene las búsquedas bajo su control. No crea perfiles publicitarios y una instancia autoalojada puede convertirse en el buscador privado de todos los dispositivos de su red.\n\nCaracterísticas destacadas:\n- Agrega resultados de una amplia selección de motores de búsqueda\n- Sin perfiles publicitarios ni seguimiento de usuarios\n- Categorías de búsqueda para web, imágenes, vídeos, noticias, mapas, ciencia, archivos y mucho más\n- Control detallado de los motores, el idioma, SafeSearch y las preferencias de la interfaz\n- Integración con OpenSearch para usarlo como motor de búsqueda predeterminado del navegador\n",
   "tagline": "Metabúsqueda privada y autoalojada sin perfiles",
+  "release_note": "Primera versión de SearXNG para DutchLiquid ZimaOS Community Store.",
   "tips": {
     "before_install": "**Antes del primer uso**\n\n1. Sustituya `SEARXNG_SECRET` por un valor largo y aleatorio. Puede generarlo con un gestor de contraseñas.\n2. Después de la instalación, abra `http://[ZimaOS-IP]:8099`.\n3. Si publica SearXNG mediante un dominio o un proxy inverso, cambie `SEARXNG_BASE_URL` por la URL pública completa, incluido `https://` y la barra final.\n\nEste paquete no incluye deliberadamente un límite de memoria específico del hardware. ZimaOS puede gestionar los recursos de acuerdo con su dispositivo.\n"
   }

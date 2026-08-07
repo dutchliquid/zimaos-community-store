@@ -6,6 +6,11 @@
       "tagline": "Datenschutzorientierter Passwort- und E-Mail-Alias-Manager"
     },
     {
+      "id": "com.dutchliquid.apache-superset",
+      "title": "Apache Superset",
+      "tagline": "Open-Source-Business-Intelligence, Diagramme und interaktive Dashboards"
+    },
+    {
       "id": "com.dutchliquid.openproject",
       "title": "OpenProject",
       "tagline": "Open-Source-Projektmanagement für klassische, agile und hybride Teams"

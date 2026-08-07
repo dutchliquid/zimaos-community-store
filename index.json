@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updated_at": "2026-08-07T11:56:47Z",
-  "app_count": 3,
+  "updated_at": "2026-08-07T13:41:29Z",
+  "app_count": 4,
   "base_url": "https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages",
   "apps": [
     {
@@ -22,8 +22,29 @@
       "thumbnail": "/apps/com.dutchliquid.aliasvault/assets/thumbnail.webp",
       "compose_url": "/apps/com.dutchliquid.aliasvault/docker-compose.yml",
       "meta_url": "/apps/com.dutchliquid.aliasvault/meta.json",
-      "content_hash": "31a55aad",
+      "content_hash": "fb820ae0",
       "version": "1.0.0"
+    },
+    {
+      "id": "com.dutchliquid.apache-superset",
+      "title": "Apache Superset",
+      "tagline": "Open-source business intelligence, charts, and interactive dashboards",
+      "category": "Productivity",
+      "categories": [
+        "productivity"
+      ],
+      "author": "DutchLiquid",
+      "developer": "Apache Software Foundation",
+      "architectures": [
+        "amd64",
+        "arm64"
+      ],
+      "icon": "/apps/com.dutchliquid.apache-superset/assets/icon.png",
+      "thumbnail": "/apps/com.dutchliquid.apache-superset/assets/dashboard.webp",
+      "compose_url": "/apps/com.dutchliquid.apache-superset/docker-compose.yml",
+      "meta_url": "/apps/com.dutchliquid.apache-superset/meta.json",
+      "content_hash": "07d985c6",
+      "version": "6.0.0"
     },
     {
       "id": "com.dutchliquid.openproject",
@@ -43,7 +64,7 @@
       "thumbnail": "/apps/com.dutchliquid.openproject/assets/thumbnail.webp",
       "compose_url": "/apps/com.dutchliquid.openproject/docker-compose.yml",
       "meta_url": "/apps/com.dutchliquid.openproject/meta.json",
-      "content_hash": "7f0609c4",
+      "content_hash": "01dbe454",
       "version": "17.6.0"
     },
     {
@@ -64,7 +85,7 @@
       "thumbnail": "/apps/com.dutchliquid.searxng/assets/thumbnail.webp",
       "compose_url": "/apps/com.dutchliquid.searxng/docker-compose.yml",
       "meta_url": "/apps/com.dutchliquid.searxng/meta.json",
-      "content_hash": "d7c6ae5c",
+      "content_hash": "876e17e8",
       "version": "1.0.0"
     }
   ]

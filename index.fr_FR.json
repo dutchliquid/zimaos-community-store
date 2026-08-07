@@ -6,6 +6,11 @@
       "tagline": "Gestionnaire privé de mots de passe et d'alias de messagerie"
     },
     {
+      "id": "com.dutchliquid.apache-superset",
+      "title": "Apache Superset",
+      "tagline": "Business intelligence open source, graphiques et tableaux de bord interactifs"
+    },
+    {
       "id": "com.dutchliquid.openproject",
       "title": "OpenProject",
       "tagline": "Gestion de projet open source pour les équipes classiques, agiles et hybrides"
