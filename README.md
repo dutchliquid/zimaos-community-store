@@ -22,16 +22,18 @@ https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages/store/ma
 
 The legacy archive is generated from the same app definitions as the v2 catalog, so both sources contain the same applications.
 
-### Published JSON catalogs
+### Published JSON files
 
-The default catalog is [store.json](https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages/store.json). Localized catalogs are also generated automatically:
+ZimaOS starts with [store.json](https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages/store.json). The generated application indexes contain the complete app list and localized descriptions:
 
-- [English](https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages/store.json)
-- [Dutch](https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages/store.nl_NL.json)
-- [German](https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages/store.de_DE.json)
-- [French](https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages/store.fr_FR.json)
-- [Spanish](https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages/store.es_ES.json)
-- [Italian](https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages/store.it_IT.json)
+- [English app index](https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages/index.json)
+- [Dutch app index](https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages/index.nl_NL.json)
+- [German app index](https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages/index.de_DE.json)
+- [French app index](https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages/index.fr_FR.json)
+- [Spanish app index](https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages/index.es_ES.json)
+- [Italian app index](https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages/index.it_IT.json)
+
+Localized `store.*.json` metadata files are published alongside these indexes. All JSON files are generated automatically from the Compose definitions on `main`.
 
 ## Available apps
 
