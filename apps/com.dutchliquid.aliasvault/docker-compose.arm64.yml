@@ -1,0 +1,41 @@
+name: aliasvault
+services:
+  aliasvault:
+    image: ghcr.io/aliasvault/aliasvault:latest@sha256:cb170153bf9ebc7898e3a12c7a0e7761dd2ea88042815bc9ff7a324f75279a8f
+    container_name: aliasvault
+    restart: unless-stopped
+    environment:
+      FORCE_HTTPS_REDIRECT: 'false'
+      PUBLIC_REGISTRATION_ENABLED: 'true'
+      HOSTNAME: localhost
+      PRIVATE_EMAIL_DOMAINS: ''
+      SUPPORT_EMAIL: ''
+    ports:
+    - target: 80
+      published: '84'
+      protocol: tcp
+    - target: 443
+      published: '4443'
+      protocol: tcp
+    - target: 25
+      published: '25'
+      protocol: tcp
+    - target: 587
+      published: '587'
+      protocol: tcp
+    volumes:
+    - /DATA/AppData/$AppID/database:/database
+    - /DATA/AppData/$AppID/logs:/logs
+    - /DATA/AppData/$AppID/secrets:/secrets
+    - /DATA/AppData/$AppID/certificates:/certificates
+x-casaos:
+  id: com.dutchliquid.aliasvault
+  main: aliasvault
+  version: 1.0.0
+  icon: https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages/apps/com.dutchliquid.aliasvault/assets/icon.png
+  title:
+    en_US: AliasVault
+    nl_NL: AliasVault
+  index: /
+  port_map: '84'
+  scheme: http

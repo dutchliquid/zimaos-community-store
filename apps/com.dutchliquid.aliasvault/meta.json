@@ -1,0 +1,37 @@
+{
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "author": "DutchLiquid",
+  "developer": "AliasVault",
+  "category": "Others",
+  "update_at": "2026-08-07",
+  "thumbnail": "/apps/com.dutchliquid.aliasvault/assets/thumbnail.webp",
+  "screenshot_link": [
+    "/apps/com.dutchliquid.aliasvault/assets/screenshot-1.webp",
+    "/apps/com.dutchliquid.aliasvault/assets/screenshot-2.webp",
+    "/apps/com.dutchliquid.aliasvault/assets/screenshot-3.webp"
+  ],
+  "tagline": "Privacy-first password and email alias manager",
+  "description": "AliasVault is a privacy-first, open-source password and email alias manager. Create a unique identity, strong password, and random email alias for every website you use, while keeping your vault end-to-end encrypted.\n\nThis all-in-one container bundles the database, API, web client, admin panel, SMTP server, and reverse proxy for a straightforward ZimaOS deployment.\n\nHighlights:\n- End-to-end encrypted password and identity vault\n- Built-in email aliases and mail reception\n- Browser extensions plus iOS and Android apps\n- Administrator panel for users and system settings\n- A single container with persistent ZimaOS-managed storage\n",
+  "tips": {
+    "before_install": "**First-time setup**\n\n1. After installation, open `http://[ZimaOS-IP]:84`.\n2. Register the first account; it becomes the administrator.\n3. Then change `PUBLIC_REGISTRATION_ENABLED` to `false` to prevent unwanted registrations.\n\n**Email aliases (optional)**\n\nPorts 25 and 587 are only required when AliasVault receives mail for your domain. Point the domain's MX record to your server and set `PRIVATE_EMAIL_DOMAINS`. Many residential internet providers block inbound port 25.\n"
+  },
+  "website": "https://www.aliasvault.net/",
+  "repo": "https://github.com/aliasvault/aliasvault",
+  "support": "https://github.com/aliasvault/aliasvault/issues",
+  "title": "AliasVault",
+  "release_note": "Initial DutchLiquid ZimaOS Community Store release.",
+  "base_url": "https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages",
+  "id": "com.dutchliquid.aliasvault",
+  "version": "1.0.0",
+  "categories": [
+    "others"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 350010551,
+    "arm64": 343607243
+  }
+}

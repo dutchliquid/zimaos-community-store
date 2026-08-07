@@ -1,0 +1,1 @@
+ghcr.io/aliasvault/aliasvault:latest sha256:1bf53175e15621015a43c67f7639f26b19e159152d252647ada66a140dcd0fb0

@@ -1,0 +1,9 @@
+{
+  "apps": [
+    {
+      "id": "com.dutchliquid.aliasvault",
+      "title": "AliasVault",
+      "tagline": "Privacyvriendelijke wachtwoord- en e-mailaliasmanager"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "store_id": "com.dutchliquid.zimaos",
+  "name": "DutchLiquid ZimaOS Community Store",
+  "description": "Privacy-focused and carefully packaged community apps for ZimaOS.",
+  "maintainer": "DutchLiquid",
+  "url": "https://github.com/dutchliquid/zimaos-community-store"
+}
