@@ -6,6 +6,11 @@
       "tagline": "Gestionnaire privé de mots de passe et d'alias de messagerie"
     },
     {
+      "id": "com.dutchliquid.openproject",
+      "title": "OpenProject",
+      "tagline": "Gestion de projet open source pour les équipes classiques, agiles et hybrides"
+    },
+    {
       "id": "com.dutchliquid.searxng",
       "title": "SearXNG",
       "tagline": "Métarecherche privée et auto-hébergée sans profilage"

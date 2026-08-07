@@ -1,0 +1,37 @@
+name: openproject
+services:
+  openproject:
+    image: openproject/openproject:17.6.0@sha256:780587250ac2fb0356c87e203efed9d7481a593a47fbaa3c04fafe6d52aaf191
+    container_name: openproject
+    restart: unless-stopped
+    tty: true
+    environment:
+      OPENPROJECT_ADDITIONAL__HOST__NAMES: '[localhost:8083, 127.0.0.1:8083]'
+      OPENPROJECT_DEFAULT__LANGUAGE: en
+      OPENPROJECT_HOST__NAME: localhost:8083
+      OPENPROJECT_HSTS: 'false'
+      OPENPROJECT_HTTPS: 'false'
+      SECRET_KEY_BASE: replace-with-a-128-character-random-secret-before-install
+    network_mode: bridge
+    ports:
+    - target: 80
+      published: '8083'
+      protocol: tcp
+    volumes:
+    - /DATA/AppData/$AppID/pgdata:/var/openproject/pgdata
+    - /DATA/AppData/$AppID/assets:/var/openproject/assets
+x-casaos:
+  id: com.dutchliquid.openproject
+  main: openproject
+  version: 17.6.0
+  icon: https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages/apps/com.dutchliquid.openproject/assets/icon.png
+  title:
+    en_US: OpenProject
+    nl_NL: OpenProject
+    de_DE: OpenProject
+    fr_FR: OpenProject
+    es_ES: OpenProject
+    it_IT: OpenProject
+  index: /
+  port_map: '8083'
+  scheme: http

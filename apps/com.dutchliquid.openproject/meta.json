@@ -1,0 +1,37 @@
+{
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "author": "DutchLiquid",
+  "developer": "OpenProject GmbH",
+  "category": "Productivity",
+  "update_at": "2026-08-07",
+  "thumbnail": "/apps/com.dutchliquid.openproject/assets/thumbnail.webp",
+  "screenshot_link": [
+    "/apps/com.dutchliquid.openproject/assets/screenshot-1.webp",
+    "/apps/com.dutchliquid.openproject/assets/screenshot-2.webp",
+    "/apps/com.dutchliquid.openproject/assets/screenshot-3.webp"
+  ],
+  "tagline": "Open-source project management for classic, agile, and hybrid teams",
+  "description": "OpenProject Community Edition is a powerful open-source platform for planning, tracking, and delivering projects in one place. It supports traditional project plans, agile workflows, and hybrid teams while keeping project data on your own ZimaOS server.\n\nHighlights:\n- Plan schedules with interactive Gantt charts and roadmaps\n- Track tasks, bugs, milestones, priorities, and dependencies\n- Organize agile work with boards, backlogs, and sprint planning\n- Record time, costs, meetings, documents, and project knowledge\n- Collaborate with notifications, comments, roles, and permissions\n- Keep the database and uploaded files in portable ZimaOS storage\n",
+  "tips": {
+    "before_install": "**Before installation**\n\n1. Set `OPENPROJECT_HOST__NAME` to the address you will actually use, such as `192.168.1.20:8083` or `openproject.example.com`.\n2. Replace `SECRET_KEY_BASE` with a cryptographically random 128-character value and keep it unchanged. Losing or changing it can make existing sessions and encrypted data unreadable.\n3. OpenProject starts in HTTP mode for simple local access. Use a trusted HTTPS reverse proxy before exposing it outside your home network.\n\nThe first startup can take several minutes. Sign in with `admin` / `admin` and change the password immediately. The all-in-one image is convenient for home use; OpenProject recommends its multi-container setup for larger production deployments.\n"
+  },
+  "website": "https://www.openproject.org/",
+  "repo": "https://github.com/opf/openproject",
+  "support": "https://community.openproject.org/projects/openproject/forums",
+  "title": "OpenProject",
+  "release_note": "Initial OpenProject 17.6.0 release for the DutchLiquid ZimaOS Community Store.",
+  "base_url": "https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages",
+  "id": "com.dutchliquid.openproject",
+  "version": "17.6.0",
+  "categories": [
+    "productivity"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 875232296,
+    "arm64": 793744349
+  }
+}

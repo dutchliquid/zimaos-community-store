@@ -6,6 +6,11 @@
       "tagline": "Privacyvriendelijke wachtwoord- en e-mailaliasmanager"
     },
     {
+      "id": "com.dutchliquid.openproject",
+      "title": "OpenProject",
+      "tagline": "Opensource projectmanagement voor klassieke, agile en hybride teams"
+    },
+    {
       "id": "com.dutchliquid.searxng",
       "title": "SearXNG",
       "tagline": "Privé metazoeken zonder tracking of profilering"

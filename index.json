@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updated_at": "2026-08-07T09:50:28Z",
-  "app_count": 2,
+  "updated_at": "2026-08-07T10:26:17Z",
+  "app_count": 3,
   "base_url": "https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages",
   "apps": [
     {
@@ -24,6 +24,27 @@
       "meta_url": "/apps/com.dutchliquid.aliasvault/meta.json",
       "content_hash": "feb3ab14",
       "version": "1.0.0"
+    },
+    {
+      "id": "com.dutchliquid.openproject",
+      "title": "OpenProject",
+      "tagline": "Open-source project management for classic, agile, and hybrid teams",
+      "category": "Productivity",
+      "categories": [
+        "productivity"
+      ],
+      "author": "DutchLiquid",
+      "developer": "OpenProject GmbH",
+      "architectures": [
+        "amd64",
+        "arm64"
+      ],
+      "icon": "/apps/com.dutchliquid.openproject/assets/icon.png",
+      "thumbnail": "/apps/com.dutchliquid.openproject/assets/thumbnail.webp",
+      "compose_url": "/apps/com.dutchliquid.openproject/docker-compose.yml",
+      "meta_url": "/apps/com.dutchliquid.openproject/meta.json",
+      "content_hash": "f345dc87",
+      "version": "17.6.0"
     },
     {
       "id": "com.dutchliquid.searxng",
