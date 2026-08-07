@@ -22,6 +22,29 @@ Do not append `.zip` directly to the repository URL; GitHub branch archives use 
 
 ## Available apps
 
+### SearXNG
+
+![SearXNG icon](Apps/SearXNG/icon.png)
+
+SearXNG is a privacy-respecting, self-hosted metasearch engine that combines results from many providers without building an advertising profile. The package uses portable ZimaOS storage and includes no hardware-specific memory limit.
+
+| Setting | Default |
+| --- | --- |
+| Web interface | `http://[ZimaOS-IP]:8099` |
+| Persistent data | `/DATA/AppData/$AppID/` |
+| Public instance mode | Disabled |
+| Image proxy | Disabled |
+
+Before installation, replace `SEARXNG_SECRET` with a long random value. When using a domain or reverse proxy, also replace `SEARXNG_BASE_URL` with the complete public URL.
+
+#### Screenshots
+
+![SearXNG search page](Apps/SearXNG/screenshot-1.png)
+
+![SearXNG search results](Apps/SearXNG/screenshot-2.png)
+
+![SearXNG preferences](Apps/SearXNG/screenshot-3.png)
+
 ### AliasVault
 
 ![AliasVault icon](Apps/AliasVault/icon.png)
@@ -51,6 +74,13 @@ After the administrator account is created, set `PUBLIC_REGISTRATION_ENABLED` to
 ```text
 Apps/
   AliasVault/
+    docker-compose.yml
+    icon.png
+    thumbnail.png
+    screenshot-1.png
+    screenshot-2.png
+    screenshot-3.png
+  SearXNG/
     docker-compose.yml
     icon.png
     thumbnail.png

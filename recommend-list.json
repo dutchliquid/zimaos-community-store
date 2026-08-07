@@ -1,5 +1,8 @@
 [
   {
     "appid": "aliasvault"
+  },
+  {
+    "appid": "searxng"
   }
 ]
