@@ -61,6 +61,31 @@ Change the initial password immediately after signing in. The initialization ser
 
 ![Apache Superset chart explorer](https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages/apps/com.dutchliquid.apache-superset/assets/explore.webp)
 
+### Headscale + Headplane
+
+![Headscale + Headplane icon](https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages/apps/com.dutchliquid.headscale-headplane/assets/icon.png)
+
+Headscale is a self-hosted implementation of the Tailscale control server. Headplane adds a modern web interface for managing machines, users, routes, access policies, DNS, and other tailnet settings. The package combines Headscale 0.29.2 and Headplane 0.6.3 with persistent SQLite storage and an automatically generated cookie secret.
+
+| Setting | Default |
+| --- | --- |
+| Headplane interface | `http://[ZimaOS-IP]:13000/admin` |
+| Headscale control server | `http://[ZimaOS-IP]:18080` |
+| Persistent data | `/DATA/AppData/$AppID/` |
+| Metadata database | SQLite |
+| MagicDNS | Enabled |
+| Taildrop | Enabled |
+
+Before installation, replace `YOUR-ZIMAOS-IP` in both URL fields. To sign in to Headplane, create a Headscale API key with `docker exec headscale headscale apikeys create --expiration 90d`. Store the key securely because it is shown only once. This package mounts the Docker socket read-only for Headplane network management; keep the interface on a trusted network and use HTTPS before exposing it to the internet.
+
+#### Screenshots
+
+![Headplane overview](https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages/apps/com.dutchliquid.headscale-headplane/assets/preview-dark.webp)
+
+![Headplane machine management](https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages/apps/com.dutchliquid.headscale-headplane/assets/machine-dark.webp)
+
+![Headplane access controls](https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages/apps/com.dutchliquid.headscale-headplane/assets/acls-dark.webp)
+
 ### OpenProject
 
 ![OpenProject icon](Apps/OpenProject/icon.png)
@@ -144,6 +169,8 @@ Apps/
     screenshot-3.png
   ApacheSuperset/
     docker-compose.yml
+  HeadscaleHeadplane/
+    docker-compose.yml
   SearXNG/
     docker-compose.yml
     icon.png
@@ -168,6 +195,8 @@ Each app follows the ZimaOS AppStore v2/CasaOS schema, has a stable reverse-doma
 
 - [AliasVault](https://github.com/aliasvault/aliasvault)
 - [Apache Superset](https://github.com/apache/superset)
+- [Headscale](https://github.com/juanfont/headscale)
+- [Headplane](https://github.com/tale/headplane)
 - [SearXNG](https://github.com/searxng/searxng)
 - [OpenProject](https://github.com/opf/openproject)
 - [ZimaOS](https://www.zimaspace.com/zimaos/)
