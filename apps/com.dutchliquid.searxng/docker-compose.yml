@@ -34,6 +34,10 @@ x-casaos:
   title:
     en_US: SearXNG
     nl_NL: SearXNG
+    de_DE: SearXNG
+    fr_FR: SearXNG
+    es_ES: SearXNG
+    it_IT: SearXNG
   index: /
   port_map: '8099'
   scheme: http

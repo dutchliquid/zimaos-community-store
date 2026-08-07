@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-08-07T09:22:59Z",
+  "updated_at": "2026-08-07T09:49:19Z",
   "app_count": 2,
   "base_url": "https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages",
   "apps": [
@@ -22,7 +22,7 @@
       "thumbnail": "/apps/com.dutchliquid.aliasvault/assets/thumbnail.webp",
       "compose_url": "/apps/com.dutchliquid.aliasvault/docker-compose.yml",
       "meta_url": "/apps/com.dutchliquid.aliasvault/meta.json",
-      "content_hash": "232ac373",
+      "content_hash": "1a61a12f",
       "version": "1.0.0"
     },
     {
@@ -43,7 +43,7 @@
       "thumbnail": "/apps/com.dutchliquid.searxng/assets/thumbnail.webp",
       "compose_url": "/apps/com.dutchliquid.searxng/docker-compose.yml",
       "meta_url": "/apps/com.dutchliquid.searxng/meta.json",
-      "content_hash": "3980b486",
+      "content_hash": "e6b8c989",
       "version": "1.0.0"
     }
   ]

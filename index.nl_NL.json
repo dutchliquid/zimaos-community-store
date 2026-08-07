@@ -2,13 +2,13 @@
   "apps": [
     {
       "id": "com.dutchliquid.aliasvault",
-      "tagline": "Privacyvriendelijke wachtwoord- en e-mailaliasmanager",
-      "title": "AliasVault"
+      "title": "AliasVault",
+      "tagline": "Privacyvriendelijke wachtwoord- en e-mailaliasmanager"
     },
     {
       "id": "com.dutchliquid.searxng",
-      "tagline": "Privé metazoeken zonder tracking of profilering",
-      "title": "SearXNG"
+      "title": "SearXNG",
+      "tagline": "Privé metazoeken zonder tracking of profilering"
     }
   ]
 }
