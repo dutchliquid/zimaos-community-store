@@ -1,0 +1,14 @@
+{
+  "apps": [
+    {
+      "id": "com.dutchliquid.aliasvault",
+      "title": "AliasVault",
+      "tagline": "Datenschutzorientierter Passwort- und E-Mail-Alias-Manager"
+    },
+    {
+      "id": "com.dutchliquid.searxng",
+      "title": "SearXNG",
+      "tagline": "Private, selbst gehostete Metasuche ohne Profilbildung"
+    }
+  ]
+}

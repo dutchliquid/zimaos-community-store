@@ -1,0 +1,14 @@
+{
+  "apps": [
+    {
+      "id": "com.dutchliquid.aliasvault",
+      "title": "AliasVault",
+      "tagline": "Gestore privato di password e alias e-mail"
+    },
+    {
+      "id": "com.dutchliquid.searxng",
+      "title": "SearXNG",
+      "tagline": "Metaricerca privata e self-hosted senza profilazione"
+    }
+  ]
+}
