@@ -10,5 +10,8 @@
   },
   {
     "appid": "apache-superset"
+  },
+  {
+    "appid": "headscale-headplane"
   }
 ]
