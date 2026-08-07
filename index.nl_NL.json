@@ -4,6 +4,11 @@
       "id": "com.dutchliquid.aliasvault",
       "title": "AliasVault",
       "tagline": "Privacyvriendelijke wachtwoord- en e-mailaliasmanager"
+    },
+    {
+      "id": "com.dutchliquid.searxng",
+      "title": "SearXNG",
+      "tagline": "Privé metazoeken zonder tracking of profilering"
     }
   ]
 }

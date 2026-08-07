@@ -1,0 +1,39 @@
+name: searxng
+services:
+  searxng:
+    image: docker.io/searxng/searxng:latest@sha256:dc5c10fda6818dfef7abfdf9f451b898242c3321514a9524af215cbedc79c89b
+    container_name: searxng
+    restart: unless-stopped
+    environment:
+      FORCE_OWNERSHIP: 'true'
+      SEARXNG_BASE_URL: http://localhost:8099/
+      SEARXNG_DEBUG: 'false'
+      SEARXNG_IMAGE_PROXY: 'false'
+      SEARXNG_PUBLIC_INSTANCE: 'false'
+      SEARXNG_SECRET: change-me-to-a-long-random-secret
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - wget -qO- http://127.0.0.1:8080/healthz || exit 1
+      timeout: 5s
+      interval: 30s
+      retries: 5
+    network_mode: bridge
+    ports:
+    - target: 8080
+      published: '8099'
+      protocol: tcp
+    volumes:
+    - /DATA/AppData/$AppID/config:/etc/searxng
+    - /DATA/AppData/$AppID/cache:/var/cache/searxng
+x-casaos:
+  id: com.dutchliquid.searxng
+  main: searxng
+  version: 1.0.0
+  icon: https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages/apps/com.dutchliquid.searxng/assets/icon.png
+  title:
+    en_US: SearXNG
+    nl_NL: SearXNG
+  index: /
+  port_map: '8099'
+  scheme: http

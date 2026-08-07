@@ -1,1 +1,2 @@
+docker.io/searxng/searxng:latest sha256:dc5c10fda6818dfef7abfdf9f451b898242c3321514a9524af215cbedc79c89b
 ghcr.io/aliasvault/aliasvault:latest sha256:1bf53175e15621015a43c67f7639f26b19e159152d252647ada66a140dcd0fb0

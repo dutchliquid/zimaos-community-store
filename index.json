@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updated_at": "2026-08-07T08:53:16Z",
-  "app_count": 1,
+  "updated_at": "2026-08-07T09:12:59Z",
+  "app_count": 2,
   "base_url": "https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages",
   "apps": [
     {
@@ -23,6 +23,27 @@
       "compose_url": "/apps/com.dutchliquid.aliasvault/docker-compose.yml",
       "meta_url": "/apps/com.dutchliquid.aliasvault/meta.json",
       "content_hash": "a8c4bb30",
+      "version": "1.0.0"
+    },
+    {
+      "id": "com.dutchliquid.searxng",
+      "title": "SearXNG",
+      "tagline": "Private, self-hosted metasearch without profiling",
+      "category": "Networking",
+      "categories": [
+        "networking"
+      ],
+      "author": "DutchLiquid",
+      "developer": "SearXNG",
+      "architectures": [
+        "amd64",
+        "arm64"
+      ],
+      "icon": "/apps/com.dutchliquid.searxng/assets/icon.png",
+      "thumbnail": "/apps/com.dutchliquid.searxng/assets/thumbnail.webp",
+      "compose_url": "/apps/com.dutchliquid.searxng/docker-compose.yml",
+      "meta_url": "/apps/com.dutchliquid.searxng/meta.json",
+      "content_hash": "1ab2b9b9",
       "version": "1.0.0"
     }
   ]

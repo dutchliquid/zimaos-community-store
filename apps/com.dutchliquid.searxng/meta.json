@@ -1,0 +1,37 @@
+{
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "author": "DutchLiquid",
+  "developer": "SearXNG",
+  "category": "Networking",
+  "update_at": "2026-08-07",
+  "thumbnail": "/apps/com.dutchliquid.searxng/assets/thumbnail.webp",
+  "screenshot_link": [
+    "/apps/com.dutchliquid.searxng/assets/screenshot-1.webp",
+    "/apps/com.dutchliquid.searxng/assets/screenshot-2.webp",
+    "/apps/com.dutchliquid.searxng/assets/screenshot-3.webp"
+  ],
+  "tagline": "Private, self-hosted metasearch without profiling",
+  "description": "SearXNG is a free, open-source metasearch engine that combines results from many search services while keeping searches under your control. It does not build advertising profiles, and a self-hosted instance can become the private search engine for every device on your network.\n\nHighlights:\n- Aggregates results from a broad collection of search engines\n- No advertising profile or user tracking\n- Search categories for web, images, videos, news, maps, science, files, and more\n- Fine-grained control over engines, language, SafeSearch, and interface preferences\n- OpenSearch integration for use as a browser's default search engine\n",
+  "tips": {
+    "before_install": "**Before first use**\n\n1. Replace `SEARXNG_SECRET` with a long random value. A password manager can generate one for you.\n2. Open `http://[ZimaOS-IP]:8099` after installation.\n3. If you publish SearXNG through a domain or reverse proxy, change `SEARXNG_BASE_URL` to the complete public URL, including `https://` and the trailing slash.\n\nThis package intentionally has no hardware-specific memory limit. ZimaOS can manage resources according to your device.\n"
+  },
+  "website": "https://docs.searxng.org/",
+  "repo": "https://github.com/searxng/searxng",
+  "support": "https://github.com/searxng/searxng/issues",
+  "title": "SearXNG",
+  "release_note": "Initial SearXNG release for the DutchLiquid ZimaOS Community Store.",
+  "base_url": "https://cdn.jsdelivr.net/gh/dutchliquid/zimaos-community-store@gh-pages",
+  "id": "com.dutchliquid.searxng",
+  "version": "1.0.0",
+  "categories": [
+    "networking"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 97032599,
+    "arm64": 94868074
+  }
+}
