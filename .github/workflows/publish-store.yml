@@ -1,3 +1,67 @@
+name: Build and publish ZimaOS AppStore v2 and legacy v1
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out store source
+        uses: actions/checkout@v4
+
+      - name: Check out official legacy builder
+        uses: actions/checkout@v4
+        with:
+          repository: IceWhaleTech/CasaOS-AppStore
+          path: .upstream-casaos-appstore
+          sparse-checkout: |
+            .github/actions/build-store-v1
+            build
+          sparse-checkout-cone-mode: false
+
+      - name: Build ZimaOS v2 store
+        uses: IceWhaleTech/build-appstore-action@v1
+        with:
+          source: .
+          output: dist
+          base-url: https://cdn.jsdelivr.net/gh/${{ github.repository }}@gh-pages
+          report-json: out/build-v2-report.json
+          report-title: DutchLiquid ZimaOS Store Build
+
+      - name: Prepare legacy v1 inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp recommend-list.json featured-apps.json
+          cp -R .upstream-casaos-appstore/build ./build
+
+      - name: Build official legacy v1 main.zip
+        uses: ./.upstream-casaos-appstore/.github/actions/build-store-v1
+        with:
+          source: .
+          output-zip: dist/store/main.zip
+          report-json: out/build-v1-report.json
+          report-title: DutchLiquid ZimaOS Legacy Store Build
+
+      - name: Publish store to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
+
+      - name: Refresh jsDelivr cache
+        shell: bash
+        run: |
+          curl -fsSL "https://purge.jsdelivr.net/gh/${{ github.repository }}@gh-pages/index.json" || true
+          curl -fsSL "https://purge.jsdelivr.net/gh/${{ github.repository }}@gh-pages/store/main.zip" || true
 name: Build and publish ZimaOS AppStore v2
 
 on:
