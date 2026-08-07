@@ -3,11 +3,19 @@
   "store_id": "com.dutchliquid.zimaos",
   "name": {
     "en_US": "DutchLiquid ZimaOS Community Store",
-    "nl_NL": "DutchLiquid ZimaOS Community Store"
+    "nl_NL": "DutchLiquid ZimaOS Community Store",
+    "de_DE": "DutchLiquid ZimaOS Community Store",
+    "fr_FR": "DutchLiquid ZimaOS Community Store",
+    "es_ES": "DutchLiquid ZimaOS Community Store",
+    "it_IT": "DutchLiquid ZimaOS Community Store"
   },
   "description": {
     "en_US": "Privacy-focused and carefully packaged community apps for ZimaOS.",
-    "nl_NL": "Privacyvriendelijke en zorgvuldig verpakte community-apps voor ZimaOS."
+    "nl_NL": "Privacyvriendelijke en zorgvuldig verpakte community-apps voor ZimaOS.",
+    "de_DE": "Datenschutzorientierte und sorgfältig paketierte Community-Apps für ZimaOS.",
+    "fr_FR": "Des applications communautaires respectueuses de la vie privée et soigneusement préparées pour ZimaOS.",
+    "es_ES": "Aplicaciones comunitarias centradas en la privacidad y cuidadosamente preparadas para ZimaOS.",
+    "it_IT": "App della community attente alla privacy e preparate con cura per ZimaOS."
   },
   "maintainer": "DutchLiquid",
   "url": "https://github.com/dutchliquid/zimaos-community-store",

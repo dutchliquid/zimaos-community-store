@@ -2,6 +2,8 @@
 
 A carefully packaged community app store for ZimaOS, maintained by [DutchLiquid](https://github.com/dutchliquid).
 
+Store and app metadata are available in English, Dutch, German, French, Spanish, and Italian.
+
 ## Add the store to ZimaOS
 
 In current ZimaOS versions, open **App Store → Settings → Custom App Store**, then add this v2 store source:
